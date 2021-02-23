@@ -1,9 +1,7 @@
 <?php
-	$host = "dbhost.cs.man.ac.uk";
-	$un = "f77885sh";
-	$pw = "COMP10120";
+	require_once('config.php');
 
-	$conn = mysqli_connect($host, $un, $pw);
+	$conn = mysqli_connect($database_host, $database_username, $database_password);
 
 	if (!$conn) {
 		die("Connection Error: " . mysqli_connect_error());
