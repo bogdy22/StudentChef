@@ -1,25 +1,26 @@
 <?php
 	require_once('config.php');
 
-	$conn = mysqli_connect($database_host, $database_username, $database_password);
+	$conn = mysqli_connect($database_host, $database_username, $database_password, "2020_comp10120_y16");
 
 	if (!$conn) {
-		die("Connection Error: " . mysqli_connect_error());
+		die();
 	}
 
 	function doSQL($sql) {
 		global $conn;
 
-		echo("<p>$sql");
-
+		// [OK, data]
 		if ($result = mysqli_query($conn, $sql)) {
-			echo(" - OK</p>");
+			return [true, $result];
 		}
 		else {
-			die(mysqli_error($conn));
+			return [false, $result];
 		}
-		return $result;
 	}
 
-	echo("<p>Connection Successful</p>");
+	function getConn() {
+		global $conn;
+		return $conn;
+	}
 ?>
