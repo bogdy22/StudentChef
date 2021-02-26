@@ -58,7 +58,7 @@
 	}
 
 	function deleteIngredients($ID) {
-		$sql = "DELETE FROM `Recipes` WHERE `ID` = '$ID'";
+		$sql = "DELETE FROM `Ingredients` WHERE `ID` = '$ID'";
 		$res = doSQL($sql);
 
 		if ($res[0]) {
