@@ -3,7 +3,7 @@
 	require_once("connection.php");
 
 	function createIngredientMeasure($Name, $Measure) {
-		$sql = "INSERT INTO `Ingredient_Measure`  `Measure_ID`, `Name`, `Measure`) VALUES (NULL, '$Name', '$Measure')";
+		$sql = "INSERT INTO `Ingredient_Measure` (`Measure_ID`, `Name`, `Measure`) VALUES (NULL, '$Name', '$Measure')";
 		$res = doSQL($sql);
 
 		if ($res[0]) {
