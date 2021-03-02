@@ -46,7 +46,7 @@
 		}
 	}
 
-	function deleteIngredients($ID) {
+	function deleteIngredientMeasures($ID) {
 		$sql = "DELETE FROM `Ingredient_Measure` WHERE `Measure_ID` = '$ID'";
 		$res = doSQL($sql);
 
