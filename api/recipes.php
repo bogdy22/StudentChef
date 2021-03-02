@@ -2,8 +2,8 @@
 	require_once("utils.php");
 	require_once("connection.php");
 
-	function createRecipe($Name, $Description, $Duration, $Difficulty, $UserID) {
-		$sql = "INSERT INTO `Recipes` (`ID`, `Name`, `Description`, `Timestamp`, `Duration`, `Difficulty`, `UserID`) VALUES (NULL, '$Name', '$Description', CURRENT_TIMESTAMP, '$Duration', '$Difficulty', '$UserID')";
+	function createRecipe($Name, $Description, $Instructions, $Duration, $Difficulty, $UserID) {
+		$sql = "INSERT INTO `Recipes` (`ID`, `Name`, `Description`, `Instructions`, `Timestamp`, `Duration`, `Difficulty`, `UserID`) VALUES (NULL, '$Name', '$Description', '$Instructions', CURRENT_TIMESTAMP, '$Duration', '$Difficulty', '$UserID')";
 		$res = doSQL($sql);
 
 		if ($res[0]) {
