@@ -3,7 +3,7 @@
 	require_once("connection.php");
 
 	function createRecipe($Name, $Description, $Duration, $Difficulty, $UserID) {
-		$sql = "INSERT INTO `Recipes` (`ID`, `Name`, `Description`, `Timestamp`, `Duration`, `Difficulty`, `UserID`) VALUES (NULL, '$Name', '$Description', CURRENT_TIMESTAMP, '$Time', '$Duration', '$UserID')";
+		$sql = "INSERT INTO `Recipes` (`ID`, `Name`, `Description`, `Timestamp`, `Duration`, `Difficulty`, `UserID`) VALUES (NULL, '$Name', '$Description', CURRENT_TIMESTAMP, '$Duration', '$Difficulty', '$UserID')";
 		$res = doSQL($sql);
 
 		if ($res[0]) {
