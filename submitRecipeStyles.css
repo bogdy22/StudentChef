@@ -1,0 +1,37 @@
+#newIngredient, #newInstruction, .delete {
+	font-weight: bold;
+	width: 40px;
+}
+
+#newIngredient {
+	margin-left: 4px;
+}
+
+.initial-text {
+	margin-left: -40px;
+}
+
+#recipeIngredients input, #recipeInstructions input {
+	width: calc(100% - 48px);
+	display: inline-block;
+	margin-right: 7px;
+}
+
+#alert {
+	position: fixed;
+	bottom: 20px;
+}
+
+body {
+	background-image: url("img\\food1.jpg");
+	background-size: cover;
+  	background-position: center center;
+	backdrop-filter: blur(5px);
+}
+
+.container {
+	background-color: white;
+	border-radius: 25px;
+
+	
+}

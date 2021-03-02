@@ -1,0 +1,98 @@
+.container {
+	height: calc(100% - 96px);
+	margin-top: 20px;
+	margin-bottom: 20px;
+
+}
+
+
+.row{
+	background-color: white;
+	display: flex;
+	border-radius: 25px;
+}
+body{
+	background-image: url("img/food2.jpg");
+	background-size: 100% 100%;
+}
+
+#main {
+	height: calc(100% - 128px);
+}
+
+#left-col, #right-col aside {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+}
+
+header p {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#instructions {
+	max-height: 528px;
+	overflow-y: auto;
+}
+
+#ingredients {
+	max-height: 192px;
+	overflow-y: auto;
+}
+
+.rating {
+	color: goldenrod;
+}
+
+.difficulty, .rating {
+	font-size: 24px;
+}
+
+.difficulty-1 {
+	color: #3D9970;
+}
+
+.difficulty-2 {
+	color: #2ECC40;
+}
+
+.difficulty-3 {
+	color: #FFDC00;
+}
+
+.difficulty-4 {
+	color: #FF851B;
+}
+
+.difficulty-5 {
+	color: #FF4136;
+}
+
+.more-buttons button {
+	width: 142px;
+	margin-bottom: 5px;
+}
+
+.card {
+    width: 320px;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.stats {
+    background: #f2f5f8 !important;
+    color: #000 !important;
+}
+
+.card-stat {
+    font-size: 10px;
+    color: #a1aab9;
+}
+
+.card-number {
+    font-weight: 500;
+}
