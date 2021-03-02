@@ -13,6 +13,17 @@
 		}
 	}
 
+	function getRecipeIngredients($RecipeID) {
+		$sql = "SELECT * FROM `Recipe_Ingredients` WHERE `RecipeID` = '$RecipeID'";
+		$res = doSQL($sql);
+
+		if ($res[0]) {
+			return [200, toArray($res[1])];
+		} else {
+			return [400];
+		}
+	}
+
 	function deleteRecipeIngredient($RecipeID, $IngredientID) {
 		$sql = "DELETE FROM `Recipe_Ingredients` WHERE `RecipeID` = '$RecipeID' AND `IngredientID` = '$IngredientID'";
 		$res = doSQL($sql);
