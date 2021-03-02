@@ -1,5 +1,43 @@
-<!-- Recipe Taken from BBC Good Food on 8th Dec 2020: https://www.bbcgoodfood.com/recipes/ultimate-chocolate-cake -->
+<?php
+	require("api/recipes.php");
+	require("api/recipes_ingredients.php");
+	require("api/ingredients.php");
+	require("api/measures.php");
+	require("api/users.php");
 
+	$recipe = getRecipeByID($_GET["id"])[1];
+	$user = getUserByID($recipe["UserID"])[1];
+
+	// TODO: This is inefficient. Use SQL joins.
+	$ingredients = [];
+	$ingredientRecords = getRecipeIngredients($recipe["ID"])[1];
+	$ingredientsList = getAllIngredients()[1];
+	$meauresList = getAllIngredientMeasures()[1];
+	foreach($ingredientRecords as $record) {
+		$ingredient = array();
+		foreach ($ingredientsList as $ingredientsListItem) {
+			if ($ingredientsListItem["ID"] == $record["IngredientID"]) {
+				foreach ($meauresList as $meauresListItem) {
+					if ($meauresListItem["Measure_ID"] == $ingredientsListItem["Measure"]) {
+						$ingredient["Name"] = $ingredientsListItem["Name"];
+						$ingredient["Quantity"] = $record["Quantity"];
+						$ingredient["Measure"] = $meauresListItem["Measure"];
+						array_push($ingredients, $ingredient);
+					}
+				}
+			}
+		}
+	}
+	// END TODO
+
+	// BEGIN DEVTEST: Temporary Variables for Things Not Yet Implemented
+	$rating = 4;
+	$userRecipes = 5;
+	$userFollowers = 82;
+	// END DEVTEST
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -12,8 +50,8 @@
 		<div class="row" id="title">
 			<div class="col p-3">
 				<header>
-					<h1>Ultimate chocolate cake</h1>
-					<p>Indulge yourself with this ultimate chocolate cake recipe that is beautifully moist, rich and fudgy. Perfect for a celebration or an afternoon tea</p>
+					<h1><?php echo($recipe["Name"]); ?></h1>
+					<p><?php echo($recipe["Description"]); ?></p>
 				</header>
 			</div>
 		</div>
@@ -23,19 +61,12 @@
 					<section>
 						<h2>Instructions</h2>
 						<ol id="instructions">
-							<li>Heat the oven to 160C/fan 140C/gas 3. Butter and line a 20cm round cake tin (7.5cm deep).</li>
-							<li>Put 200g chopped dark chocolate in a medium pan with 200g butter.</li>
-							<li>Mix 1 tbsp instant coffee granules into 125ml cold water and pour into the pan.</li>
-							<li>Warm through over a low heat just until everything is melted – don’t overheat. Or melt in the microwave for about 5 minutes, stirring halfway through.</li>
-							<li>Mix 85g self-raising flour, 85g plain flour, ¼ tsp bicarbonate of soda, 200g light muscovado sugar, 200g golden caster sugar and 25g cocoa powder, and squash out any lumps.</li>
-							<li>Beat 3 medium eggs with 75ml buttermilk.</li>
-							<li>Pour the melted chocolate mixture and the egg mixture into the flour mixture and stir everything to a smooth, quite runny consistency.</li>
-							<li>Pour this into the tin and bake for 1hr 25 – 1hr 30 mins. If you push a skewer into the centre it should come out clean and the top should feel firm (don’t worry if it cracks a bit).</li>
-							<li>Leave to cool in the tin (don’t worry if it dips slightly), then turn out onto a wire rack to cool completely. Cut the cold cake horizontally into three.</li>
-							<li>To make the ganache, put 200g chopped dark chocolate in a bowl.  Pour 300ml double cream into a pan, add 2 tbsp golden caster sugar and heat until it is about to boil.</li>
-							<li>Take off the heat and pour it over the chocolate. Stir until the chocolate has melted and the mixture is smooth. Cool until it is a little thicker but still pourable.</li>
-							<li>Sandwich the layers together with just a little of the ganache. Pour the rest over the cake letting it fall down the sides and smooth over any gaps with a palette knife.</li>
-							<li>Decorate with 50g grated chocolate or 100g chocolate curls. The cake keeps moist and gooey for 3-4 days.</li>
+							<?php
+								$instructions = explode("|", $recipe["Instructions"]);
+								foreach ($instructions as $instruction) {
+									echo("<li>$instruction</li>");
+								}
+							?>
 						</ol>
 					</section>
 				</main>
@@ -53,30 +84,50 @@
 					<section>
 						<h2>Ingredients</h2>
 						<ul id="ingredients">
-							<li>200g dark chocolate, chopped</li>
-							<li>200g butter, cubed</li>
-							<li>1 tbsp instant coffee granules</li>
-							<li>85g self-raising flour</li>
-							<li>85g plain flour</li>
-							<li>¼ tsp bicarbonate of soda</li>
-							<li>200g light muscovado sugar</li>
-							<li>200g golden caster sugar</li>
-							<li>25g cocoa powder</li>
-							<li>3 medium eggs</li>
-							<li>75ml buttermilk</li>
-							<li>50g grated chocolate or 100g curls, to decorate</li>
-							<li>200g dark chocolate, chopped</li>
-							<li>300ml double cream</li>
-							<li>2 tbsp golden caster sugar</li>
+							<?php
+								foreach ($ingredients as $ingredient) {
+									echo("<li>" . $ingredient["Quantity"] . $ingredient["Measure"] . " " . $ingredient["Name"] . "</li>");
+								}
+							?>
 						</ul>
 					</section>
 					<section>
 						<h2>Average Rating</h2>
-						<p title="5 Stars" class="rating">★ ★ ★ ★ ★</p>
+						<p title="<?php echo($rating); ?> Stars" class="rating">
+							<?php
+								echo($rating >= 1 ? "★ " : "☆ ");
+								echo($rating >= 2 ? "★ " : "☆ ");
+								echo($rating >= 3 ? "★ " : "☆ ");
+								echo($rating >= 4 ? "★ " : "☆ ");
+								echo($rating >= 5 ? "★ " : "☆ ");
+							?>
+						</p>
 					</section>
 					<section>
 						<h2>Average Difficulty</h2>
-						<p  title="2/5 - Easy" class="difficulty difficulty-2">● ● ○ ○ ○ - <strong>Easy</strong></p>
+						<?php
+							if ($recipe["Difficulty"] >= 5) {
+								$difficulty = "Very Hard";
+							} else if ($recipe["Difficulty"] >= 4) {
+								$difficulty = "Hard";
+							} else if ($recipe["Difficulty"] >= 3) {
+								$difficulty = "Intermediate";
+							} else if ($recipe["Difficulty"] >= 2) {
+								$difficulty = "Easy";
+							} else {
+								$difficulty = "Very Easy";
+							}
+						?>
+						<p title="<?php echo($recipe["Difficulty"]); ?>/5 - <?php echo($difficulty); ?>" class="difficulty difficulty-<?php echo($recipe["Difficulty"]); ?>">
+							<?php
+								echo($recipe["Difficulty"] >= 1 ? "● " : "○ ");
+								echo($recipe["Difficulty"] >= 2 ? "● " : "○ ");
+								echo($recipe["Difficulty"] >= 3 ? "● " : "○ ");
+								echo($recipe["Difficulty"] >= 4 ? "● " : "○ ");
+								echo($recipe["Difficulty"] >= 5 ? "● " : "○ ");
+								echo("- $difficulty");
+							?>
+						</p>
 					</section>
 					<section>
 						<h2>Author</h2>
@@ -84,10 +135,15 @@
 							<div class="d-flex align-items-center">
 								<div class="image"><img src="https://picsum.photos/112" class="rounded" width="112"></div>
 								<div class="ml-3 w-100">
-									<h4 class="mb-0 mt-0">Angela Nilsen</h4><span>Uploaded on 08/12/2020</span>
+									<h4 class="mb-0 mt-0"><?php echo($user["PreferredName"]); ?></h4>
+									<span><?php echo(date_format(date_create($recipe["Timestamp"]), "d/m/Y")); ?></span>
 									<div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-										<div class="d-flex flex-column"> <span class="card-stat">Recipes</span> <span class="card-number">5</span> </div>
-										<div class="d-flex flex-column"> <span class="card-stat">Followers</span> <span class="card-number">82</span> </div>
+										<div class="d-flex flex-column"> <span class="card-stat">Recipes</span> <span class="card-number">
+											<?php echo($userRecipes); ?>
+										</span></div>
+										<div class="d-flex flex-column"> <span class="card-stat">Followers</span> <span class="card-number">
+											<?php echo($userFollowers); ?>
+										</span></div>
 									</div>
 								</div>
 							</div>
