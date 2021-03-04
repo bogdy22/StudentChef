@@ -6,6 +6,10 @@ function showAlert(text) {
 	}, 3000);
 }
 
+$(':radio').change(function() {
+	console.log('New star rating: ' + this.value);
+  });
+
 $("#newIngredient").click(function() {
 	const html = $("#ingredientTemplate").html();
 
@@ -18,6 +22,7 @@ $("#newInstruction").click(function() {
 
 	$("#recipeInstructions ol em").remove();
 	$("#recipeInstructions ol").append(html);
+	
 });
 
 $(document).delegate(".delete", "click", function() {
@@ -54,9 +59,11 @@ $("#submit").click(function() {
 			valid = false;
 		}
 		else {
+			
 			fields += "<input name='ingredients[]' value='" + $(this).val() + "' style='display: none;'>";
 		}
 	});
+
 
 	if (!valid) {
 		showAlert("Please complete the ingredients list.")

@@ -12,7 +12,7 @@
 			<div class="row">
 				<div class="col p-3">
 					<header>
-						<h1>Submit new recipe  <button type="button" id="submit" class="btn btn-primary btn-lg float-right">Submit Recipe</button></h1>
+						<h1>Submit new recipe  <button type="submit" id="submit" name="submit" class="btn btn-primary btn-lg float-right">Submit Recipe</button></h1>
 						<p>Please simply fill in the below fields</p>
 					</header>
 				</div>
@@ -21,7 +21,7 @@
 				<div class="col p-3">
 					<main>
 						<div id="alert" class="alert alert-danger" role="alert" style="display: none;"></div>
-						<form>
+						<form method = "post" action="createRecipe.php">
 							<fieldset class="form-group">
 								<h3>Basic Information</h3>
 								<div class="mb-3">
@@ -40,6 +40,7 @@
 										<em class="initial-text">Nothing</em>
 									</ul>
 								</div>
+							
 							</fieldset>
 							<fieldset class="form-group">
 								<h3>Instructions <button type="button" id="newInstruction" class="btn btn-success">+</button></h3>
@@ -48,6 +49,45 @@
 										<em class="initial-text">Nothing</em>
 									</ol>
 								</div>
+							</fieldset>
+							<h3>Difficulty</h3>
+							<fieldset class="rating">
+							
+							<label>
+								<input type="radio" name="difficulty" value="1" />
+								<span class="icon">★</span>
+							</label>
+							<label>
+								<input type="radio" name="difficulty" value="2" />
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+							</label>
+							<label>
+								<input type="radio" name="difficulty" value="3" />
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>   
+							</label>
+							<label>
+								<input type="radio" name="difficulty" value="4" />
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+							</label>
+							<label>
+								<input type="radio" name="difficulty" value="5" />
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+							</label>
+															
+							</fieldset>
+							<fieldset>
+								<h3>Duration</h3>
+								<input type="text" name="duration" class="form-control" style="width:30%;"><h6>minutes</h6></input>					
 							</fieldset>
 						</form>
 					</main>
