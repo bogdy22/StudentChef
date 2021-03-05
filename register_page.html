@@ -3,22 +3,21 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="register.css" media="screen"/>
+	<script type="text/javascript" src="password_validation.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title>Register</title>
 </head>
 
 <body>
-	<form action="register.php" method="post">
+	<form action="register.php" method="post" class="form1">
   	
   	<div class="main">
      <p class="sign" align="center">Become a StudentChef now!</p>
-     <form class="form1">
-      <input class="un" type="text" align="center" placeholder="Username" required>
-      <input class="pass" type="password" align="center" placeholder="Password" required>
-      <input class="pass" type="password" align="center" placeholder="Confirm Password" required>
-      <input class="email" type="text" align="center" placeholder="University Email" required>
-      <!-- The email address might be ditched, should be discussed in the next meeting -->
-      <a class="submit" align="center">Create account</a>
+      <input class="un" type="text" align="center" placeholder="Username" id="pswd" required>
+      <input class="pass" type="password" align="center" placeholder="Password" id="pswd1" required>
+      <input class="pass" type="password" align="center" placeholder="Confirm Password" id="pswd2" required>
+      
+      <a href="home.html" class="submit" align="center" value="Submit">Create account</a>
       <a href="login_page.html" class="cancel" align="center">Cancel</a>
        
                 
