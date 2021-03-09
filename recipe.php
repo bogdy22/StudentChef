@@ -1,19 +1,38 @@
+<?php 
+session_start();
+$_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
+?>
+
 <?php
 	require("api/recipes.php");
 	require("api/recipes_ingredients.php");
 	require("api/ingredients.php");
 	require("api/measures.php");
+	require("api/feedback.php");
 	require("api/users.php");
+?>
 
+<?php
+	if (!empty($_POST["recipeRating"]) && !empty($_POST["recipeDifficulty"]) && !empty($_POST["recipeDuration"])) {
+		if (!empty($_SESSION["username"])) {
+			$res = getUserByCASName($_SESSION["username"]);
+			$UserID = $res[1]["ID"];
+			createFeedback($_POST["recipeRating"], $_POST["recipeReview"], $_POST["recipeDuration"], $_POST["recipeDifficulty"], $_GET["id"], $UserID);
+		}
+	}
+?>
+
+<?php
 	$recipe = getRecipeByID($_GET["id"])[1];
 	$user = getUserByID($recipe["UserID"])[1];
+	$feedback = getFeedbackByRecipe($_GET["id"])[1];
 
 	// TODO: This is inefficient. Use SQL joins.
 	$ingredients = [];
 	$ingredientRecords = getRecipeIngredients($recipe["ID"])[1];
 	$ingredientsList = getAllIngredients()[1];
 	$meauresList = getAllIngredientMeasures()[1];
-	foreach($ingredientRecords as $record) {
+	foreach ($ingredientRecords as $record) {
 		$ingredient = array();
 		foreach ($ingredientsList as $ingredientsListItem) {
 			if ($ingredientsListItem["ID"] == $record["IngredientID"]) {
@@ -30,14 +49,18 @@
 	}
 	// END TODO
 
+	$rating = 0;
+	foreach ($feedback as $review) {
+		$rating += $review["Rating"];
+	}
+	$rating = round($rating / count($feedback));
+
 	// BEGIN DEVTEST: Temporary Variables for Things Not Yet Implemented
-	$rating = 4;
 	$userRecipes = 5;
 	$userFollowers = 82;
 	// END DEVTEST
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -72,10 +95,16 @@
 				</main>
 				<footer>
 					<div class="btn-group d-flex justify-content-center" role="actions" aria-label="More Actions">
-						<button type="button" class="btn btn-primary">View Feedback</button>
-						<button type="button" class="btn btn-primary">Write Feedback</button>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-view-feedback">View Feedback</button>
+						<?php
+							if (isset($_SESSION["authTime"])) {
+								echo('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-write-feedback">Write Feedback</button>');
+							} else {
+								echo('<button type="button" class="btn btn-primary disabled" data-toggle="modal" data-target="#modal-write-feedback">Write Feedback</button>');
+							}
+						?>
 						<button type="button" class="btn btn-primary">Find Ingredients</button>
-						<button type="button" class="btn btn-danger">Report Page</button>
+						<button type="button" class="btn btn-danger disabled">Report Page</button>
 					</div>
 				</footer>
 			</div>
@@ -152,6 +181,96 @@
 				</aside>
 			</div>	
 		</div>
+		<div id="modal-view-feedback" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">View Recipe Feedback</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<?php
+							foreach ($feedback as $review) {
+								echo("<div>");
+								echo("<strong>Rating: </strong>");
+								echo($review["Rating"] >= 1 ? "★ " : "☆ ");
+								echo($review["Rating"] >= 2 ? "★ " : "☆ ");
+								echo($review["Rating"] >= 3 ? "★ " : "☆ ");
+								echo($review["Rating"] >= 4 ? "★ " : "☆ ");
+								echo($review["Rating"] >= 5 ? "★ " : "☆ ");
+								echo("</div>");
+								echo("<div>");
+								echo("<strong>Difficulty: </strong>");
+								echo($review["Difficulty"] >= 1 ? "● " : "○ ");
+								echo($review["Difficulty"] >= 2 ? "● " : "○ ");
+								echo($review["Difficulty"] >= 3 ? "● " : "○ ");
+								echo($review["Difficulty"] >= 4 ? "● " : "○ ");
+								echo($review["Difficulty"] >= 5 ? "● " : "○ ");
+								echo("</div>");
+								echo("<div>");
+								echo("<strong>Time Taken: </strong>");
+								echo("$review[Duration] Minutes");
+								echo("</div>");
+								if (!empty($review["Comment"])) {
+									echo("<div>");
+									echo("<strong>Comment: </strong>");
+									echo($review["Comment"]);
+									echo("</div>");
+								}
+								echo("<hr>");
+							}
+						?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="modal-write-feedback" class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Write Recipe Feedback</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<?php echo("<form id='write-feedback-form' method='POST' action='recipe.php?id=$_GET[id]'>"); ?>
+							<fieldset class="form-group">
+								<div class="mb-3">
+									<label for="recipeReview" class="form-label">Review</label>
+									<textarea class="form-control" id="recipeReview" name="recipeReview"></textarea>
+								</div>
+							</fieldset>
+							<fieldset class="form-group">
+								<div class="mb-3">
+									<label for="recipeRating" class="form-label">Rating: <span id="recipeRatingLabel">3</span></label>
+									<input type="range" class="form-control" id="recipeRating" name="recipeRating" min="1" max="5" value="3">
+								</div>
+							</fieldset>
+							<fieldset class="form-group">
+								<div class="mb-3">
+									<label for="recipeDifficulty" class="form-label">Difficulty: <span id="recipeDifficultyLabel">3</span></label>
+									<input type="range" class="form-control" id="recipeDifficulty" name="recipeDifficulty" min="1" max="5" value="3">
+								</div>
+							</fieldset>
+							<fieldset class="form-group">
+								<div class="mb-3">
+									<label for="recipeDuration" class="form-label">Time Taken to Make (Minutes): <span id="recipeDurationLabel">60</span></label>
+									<input type="range" class="form-control" id="recipeDuration" name="recipeDuration" min="15" max="180" step="15" value="60">
+								</div>
+							</fieldset>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="feedback-submit">Submit</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<script src="scripts.js"></script>
+		<script src="recipeScripts.js"></script>
 	</body>
 </html>
