@@ -1,8 +1,8 @@
 <?php
-require_once('api\\recipes.php');
+require_once('api/recipes.php');
 
  
-    $recpieTitle = $_POST['recipeTitle']; 
+    $recipeTitle = $_POST['recipeTitle']; 
     $description = $_POST['recipeTagline']; 
     $instructionlist = $_POST['instructions'];
     $instructions = implode('|', $instructionlist);
@@ -10,7 +10,7 @@ require_once('api\\recipes.php');
     $ingredient = implode('|',$ingredientlist);
     $difficulty = $_POST['difficulty'];
     $duration = $_POST['duration'];
-    createRecipe($recpieTitle, $description, $instructions, $duration , $difficulty, 1);
+    createRecipe($recipeTitle, $description, $instructions, $duration , $difficulty, 1);
 ?>
 
 <!DOCTYPE html>

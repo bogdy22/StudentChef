@@ -5,7 +5,7 @@
 	require("api/measures.php");
 	require("api/users.php");
 
-	$recipe = getRecipeByID($_GET["id"])[1];
+	$recipe = getRecipeByID($_POST["id"])[1];
 	$user = getUserByID($recipe["UserID"])[1];
 
 	// TODO: This is inefficient. Use SQL joins.
