@@ -1,3 +1,8 @@
+<?php 
+session_start();
+$_SESSION["returnPath"] = "../home.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>

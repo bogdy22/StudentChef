@@ -3,7 +3,7 @@
 	require_once("connection.php");
 
 	function createFeedback($Rating, $Comment, $Duration, $Difficulty, $RecipeID, $UserID) {
-		$sql = "INSERT INTO `Recipe_Feedback` (`ID`, `Rating`, `Comment`, `Timestamp`, `Duration`, `Difficulty`, `RecipeID` `UserID`) VALUES (NULL, '$Rating', '$Comment', CURRENT_TIMESTAMP, '$Time', '$Duration', '$RecipeID', '$UserID')";
+		$sql = "INSERT INTO `Recipe_Feedback` (`ID`, `Rating`, `Comment`, `Timestamp`, `Duration`, `Difficulty`, `RecipeID`, `UserID`) VALUES (NULL, '$Rating', '$Comment', CURRENT_TIMESTAMP, '$Duration', '$Difficulty', '$RecipeID', '$UserID')";
 		$res = doSQL($sql);
 
 		if ($res[0]) {

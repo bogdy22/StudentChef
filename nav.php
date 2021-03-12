@@ -16,13 +16,12 @@
 			  </li>
 			<a class="nav-link" href="submitRecipe.php">Submit Recipe</a>
 			<?php 
-            if (!(!isset($_SESSION["authTime"]) || !isset($_SESSION["username"]))){
-                echo "<a class='nav-link' href='auth/login.php'>Login</a>";
+            if (!isset($_SESSION["authTime"]) || !isset($_SESSION["username"])){
+                echo "<a class='nav-link' href='auth/login.php'>Login/Signup</a>";
             }else{
-                echo "<a class='nav-link' href='auth/logout.php'>Log out</a>";
+                echo "<a class='nav-link' href='auth/logout.php'>Logout</a>";
             }
             ?>
-			<a class="nav-link" href="#">Signup</a>
 		</div>
 	</div>
 </nav>

@@ -1,3 +1,9 @@
+<?php 
+session_start();
+$_SESSION["returnPath"] = "../submitRecipe.php";
+require_once("auth/isAuth.php"); 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
