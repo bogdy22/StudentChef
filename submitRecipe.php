@@ -1,13 +1,19 @@
-<?php 
-session_start();
-$_SESSION["returnPath"] = "../submitRecipe.php";
-require_once("auth/isAuth.php"); 
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<?php include("head.html") ?>
+		<?php 	include("head.html");
+				require_once('api\\measures.php');
+
+				$measures = getAllIngredientMeasures()[1];
+				$measuresAbr = [];
+				$measureID = [];
+				foreach ($measures as $measure){
+					array_push($measuresAbr, $measure["Measure"]);
+					array_push($measureID, $measure["Measure_ID"]);
+				}
+
+		
+		?>
 		<link rel="stylesheet" type="text/css" href="submitRecipeStyles.css">
 	</head>
 	<body>
@@ -18,7 +24,7 @@ require_once("auth/isAuth.php");
 			<div class="row">
 				<div class="col p-3">
 					<header>
-						<h1>Submit new recipe  <button type="submit" id="submit" name="submit" class="btn btn-primary btn-lg float-right">Submit Recipe</button></h1>
+						<h1>Submit new recipe  <input type="submit" id="submit" name="submit" form="recipe" class="btn btn-primary btn-lg float-right"></h1>
 						<p>Please simply fill in the below fields</p>
 					</header>
 				</div>
@@ -27,7 +33,7 @@ require_once("auth/isAuth.php");
 				<div class="col p-3">
 					<main>
 						<div id="alert" class="alert alert-danger" role="alert" style="display: none;"></div>
-						<form method = "post" action="createRecipe.php">
+						<form id="recipe"  method = "post" action="createRecipe.php">
 							<fieldset class="form-group">
 								<h3>Basic Information</h3>
 								<div class="mb-3">
@@ -103,7 +109,17 @@ require_once("auth/isAuth.php");
 		<div style="display: none;">
 			<div id="ingredientTemplate">
 				<li class="mb-3">
-					<input type="text" class="form-control"><button type="button" class="btn btn-danger delete">x</button>
+					<input type="text" class="form-control" style="display:inline-block; width:25%">
+					<select class="form-control" style="display:inline-block; width:15%">
+						<?php
+							foreach ($measuresAbr as $i => $measure){
+								echo '<option value="'.$measureID[$i].'">'.$measure.'</option>';
+							}
+
+
+						?>
+					<input type="text" class="form-control" style="display:inline-block; width:50%">
+					<button type="button" class="btn btn-danger delete">x</button>
 				</li>
 			</div>
 			<div id="instructionTemplate">

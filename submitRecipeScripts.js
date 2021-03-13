@@ -54,13 +54,33 @@ $("#submit").click(function() {
 	var valid = true,
 		fields = "";
 
-	$("#recipeIngredients li input").each(function(i) {
+	$("#recipeIngredients li input:nth-child(3)").each(function(i) {
 		if ($(this).val() === "") {
 			valid = false;
 		}
 		else {
 			
 			fields += "<input name='ingredients[]' value='" + $(this).val() + "' style='display: none;'>";
+		}
+	});
+
+	$("#recipeIngredients li select").each(function(i) {
+		if ($(this).val() === "") {
+			valid = false;
+		}
+		else {
+			
+			fields += "<input name='measure[]' value='" + $(this).val() + "' style='display: none;'>";
+		}
+	});
+
+	$("#recipeIngredients li input:nth-child(1)").each(function(i) {
+		if ($(this).val() === "") {
+			valid = false;
+		}
+		else {
+			
+			fields += "<input name='amount[]' value='" + $(this).val() + "' style='display: none;'>";
 		}
 	});
 
