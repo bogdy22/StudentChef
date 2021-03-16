@@ -7,7 +7,7 @@ git checkout -b branchToCreate
 ```
 to make a branch and commit your changes normally. Then when you're done type
 ```
-git checkout master
+git checkout main
 git merge branchToCreate
 ```
 If there are merge conflicts put them on the group chat and we can talk it through.
