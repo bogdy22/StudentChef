@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<?php 	include("head.html");
-				require_once('api\\measures.php');
+				require_once('api/measures.php');
 
 				$measures = getAllIngredientMeasures()[1];
 				$measuresAbr = [];
