@@ -23,7 +23,7 @@ $_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
 ?>
 
 <?php
-	$recipe = getRecipeByID($_POST["id"])[1];
+	$recipe = getRecipeByID($_GET["id"])[1];
 	$user = getUserByID($recipe["UserID"])[1];
 	$feedback = getFeedbackByRecipe($_GET["id"])[1];
 

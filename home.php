@@ -19,7 +19,7 @@ $_SESSION["returnPath"] = "../home.php";
 <body>
    <?php include("nav.php") ?>
       <div class="s003">
-      <form action="searchResults.php" method="post">
+      <form action="searchResults.php" method="get">
         <div class="inner-form">
           <div class="input-field first-wrap">
             <div class="input-select">

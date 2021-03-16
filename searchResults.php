@@ -4,7 +4,7 @@
   <?php include("head.html") ?>
   <?php require_once("api/recipes.php") ?>
   <?php
-      	$name = $_POST['recipeName'];
+      	$name = $_GET['recipeName'];
       	$query = "%" . $name . "%";
       	$result = searchRecipes($query);
       	
@@ -66,12 +66,12 @@
 					echo("<div class=\"searchResult\">");
 					echo("<p>Name: ".$result[1][$x][$keys[1]]);
 					echo("<br />Description: ".$result[1][$x][$keys[2]]);
-					echo("</p><form method=\"post\" action=\"recipe.php\"><button class=\"submitButton\" type=\"submit\" formmethod=\"post\" value=\"".$result[1][$x][$keys[0]]."\" name=\"id\"/>See recipe</button></form>");
+					echo("</p><form method=\"post\" action=\"recipe.php\"><button class=\"submitButton\" type=\"submit\" formmethod=\"get\" value=\"".$result[1][$x][$keys[0]]."\" name=\"id\"/>See recipe</button></form>");
 					echo("</div>");
 				}
 			}
 			else {
-				echo("<p>Sorry, there were no results for that term. Please try again with a different term, or create your own recipe <a href=\"createRecipe.php\">here</a>.");
+				echo("<p>Sorry, there were no results for that term. Please try again with a different term, or create your own recipe <a href=\"submitRecipe.php\">here</a>.");
 			}
 		?>
 		</div>
