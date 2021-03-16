@@ -1,8 +1,3 @@
-<?php 
-session_start();
-$_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
-?>
-
 <?php
 	require("api/recipes.php");
 	require("api/recipes_ingredients.php");
@@ -10,6 +5,22 @@ $_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
 	require("api/measures.php");
 	require("api/feedback.php");
 	require("api/users.php");
+?>
+
+<?php
+	if (!empty($_GET["id"])) {
+		$recipe = getRecipeByID($_GET["id"])[1];
+	}
+
+	if (empty($recipe)) {
+		echo("Uh oh!");
+		die();
+	}
+?>
+
+<?php 
+session_start();
+$_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
 ?>
 
 <?php
@@ -23,7 +34,6 @@ $_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
 ?>
 
 <?php
-	$recipe = getRecipeByID($_GET["id"])[1];
 	$user = getUserByID($recipe["UserID"])[1];
 	$feedback = getFeedbackByRecipe($_GET["id"])[1];
 
@@ -50,10 +60,12 @@ $_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
 	// END TODO
 
 	$rating = 0;
-	foreach ($feedback as $review) {
-		$rating += $review["Rating"];
+	if (count($feedback) > 0) {
+		foreach ($feedback as $review) {
+			$rating += $review["Rating"];
+		}
+		$rating = round($rating / count($feedback));
 	}
-	$rating = round($rating / count($feedback));
 
 	// BEGIN DEVTEST: Temporary Variables for Things Not Yet Implemented
 	$userRecipes = 5;
