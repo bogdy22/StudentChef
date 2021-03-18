@@ -124,7 +124,20 @@ $_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
 						<button type="button" class="btn btn-primary disabled" disabled>Find Ingredients</button>
 						<?php
 							if (isset($_SESSION["authTime"])) {
-								echo('<button type="submit" class="btn btn-danger">Report Page</button>');
+								$res = getUserByCASName($_SESSION["username"]);
+								$UserID = $res[1]["ID"];
+								$reports = getReportsByRecipe($_GET["id"]);
+								foreach ($reports as $report) {
+									if (isset($report["UserID"]) && $report["UserID"] == $UserID) {
+										$userReported = true;
+										break;
+									}
+								}
+								if (isset($userReported)) {
+									echo('<button type="submit" class="btn btn-danger disabled" disabled>Report Page</button>');
+								} else {
+									echo('<button type="submit" class="btn btn-danger">Report Page</button>');
+								}
 							} else {
 								echo('<button type="submit" class="btn btn-danger disabled" disabled>Report Page</button>');
 							}
