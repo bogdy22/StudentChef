@@ -3,7 +3,7 @@
 	require_once("connection.php");
 
 	function createUsers($PreferredName, $CASName) {
-		$sql = "INSERT INTO `Users` (`ID`, `PreferredName`, `CASName`) VALUES (NULL, '$PreferredName', '$CASName')";
+		$sql = "INSERT INTO `Users` (`ID`, `PreferredName`, `CASName`, `Admin`) VALUES (NULL, '$PreferredName', '$CASName', 0)";
 		$res = doSQL($sql);
 
 		if ($res[0]) {
