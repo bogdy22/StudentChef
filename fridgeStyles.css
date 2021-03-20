@@ -1,0 +1,80 @@
+#newIngredient, #newInstruction, .delete {
+	font-weight: bold;
+	width: 40px;
+}
+
+#newIngredient {
+	margin-left: 4px;
+}
+
+.initial-text {
+	margin-left: -40px;
+}
+
+#recipeIngredients input, #recipeInstructions input {
+	width: calc(100% - 48px);
+	display: inline-block;
+	margin-right: 7px;
+}
+
+#alert {
+	position: fixed;
+	bottom: 20px;
+}
+
+body {
+	background-image: url("img/pexels-trang-doan-1092730.jpg");
+	background-size: cover;
+  	background-position: center center;
+
+}
+
+.contain {
+	border-radius: 25px;
+    margin:auto;
+    width: 40%;
+    padding-bottom: 10px;
+    background: linear-gradient(to bottom, rgba(78, 76, 76, 0.3), rgba(115, 115, 117, 0.9));
+    background-color: white;
+    border-style: outset;
+	
+}
+
+
+  .center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	max-width: 100%;
+	height: auto;
+  }
+
+
+  div.square {
+	height: 1000px;
+	width: 700px;
+	background: linear-gradient(to bottom, rgba(8, 8, 8, 0.3), rgba(159, 159, 160, 0.9));
+	margin:auto;
+	overflow:auto;
+	border-radius: 50px;
+	border-style: inset;
+	border-right-width: 20px;
+	border-top-width: 20px;
+    background-color: gray;
+  }
+
+  .ingr {
+    border-style: outset;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, rgba(78, 76, 76, 0.3), rgba(115, 115, 117, 0.9));
+    margin:auto;
+
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}

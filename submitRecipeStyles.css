@@ -110,3 +110,20 @@ body {
 	max-width: 100%;
 	height: auto;
   }
+
+
+  .selector {
+	background: linear-gradient(to bottom, rgba(80, 68, 73, 0.3), rgba(154, 154, 168, 0.9));
+  }
+
+  div.square {
+	height: 1000px;
+	width: 700px;
+	background: linear-gradient(to bottom, rgba(27, 26, 26, 0.3), rgba(65, 65, 68, 0.9));
+	margin:auto;
+	overflow:auto;
+	border-radius: 50px;
+	border-style: inset;
+	border-right-width: 20px;
+	border-top-width: 20px;
+  }
