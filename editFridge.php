@@ -10,6 +10,13 @@
                 $_SESSION["returnPath"] = "../editFridge.php";
 				
 		?>
+
+        <?php 
+        if (!isset($_SESSION["authTime"]) || !isset($_SESSION["username"]) || !isset($_SESSION["fullName"])) {
+            header("Location: auth/login.php");
+            die();
+        }
+        ?>
             <link rel='stylesheet' type='text/css' href='fridgeStyles.css'>
         </head>
         <body>
@@ -38,13 +45,13 @@
                                         $ingredient = getIngredientByID($ingredientID)[1]["Name"];  
                                         if ($record['Excess']==0){
                                             echo "<li class='mb-3'>
-                                                    <input type='text' class='form-control' style='display:inline-block; width:70%; margin-left:60px;' value = " .$ingredient.">
+                                                    <input type='text' class='form-control ingrEdit' style='display:inline-block; width:70%; margin-left:60px;' value = " .$ingredient.">
                                                     <input type='checkbox' class='form-control' value='1' style='display:inline-block; width: 35px;height:35px; vertical-align: middle;'>
                                                     <button type='button' class='btn btn-danger delete'>x</button>
                                                 </li>";
                                         }else{
                                             echo "<li class='mb-3'>
-                                                    <input type='text' class='form-control' style='display:inline-block; width:70%; margin-left:60px;' value = " .$ingredient.">
+                                                    <input type='text' class='form-control ingrEdit' style='display:inline-block; width:70%; margin-left:60px;' value = " .$ingredient.">
                                                     <input type='checkbox' class='form-control' value='1' style='display:inline-block; width: 35px;height:35px; vertical-align: middle;' checked>
                                                     <button type='button' class='btn btn-danger delete'>x</button>
                                                 </li>";

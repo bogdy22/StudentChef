@@ -17,6 +17,10 @@ $("#submit").click(function() {
     var valid = true,
 		fields = "";
 
+	$("#recipeIngredients li input:nth-child(2):not(:checked)").each(function(i) {
+		$(this).attr("checked", true).val(0);
+	});
+
 	$("#recipeIngredients li input:nth-child(1)").each(function(i) {
 		if ($(this).val() === "") {
 			valid = false;

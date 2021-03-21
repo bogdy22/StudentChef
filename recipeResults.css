@@ -1,0 +1,81 @@
+#alert {
+	position: fixed;
+	bottom: 20px;
+}
+
+body {
+	background-image: url(img/pexels-lena-khrupina-2683373.jpg);
+	background-size: cover;
+  	background-position: center center;
+
+}
+
+.contain {
+
+    margin:auto;
+    width: 40%;
+    padding-bottom: 10px;
+    background-color: white;
+
+	
+}
+
+
+  .center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	max-width: 100%;
+	height: auto;
+  }
+
+
+  div.square {
+	height: 600px;
+	width: 1000px;
+
+	margin:auto;
+
+	border-radius: 50px;
+
+	border-right-width: 20px;
+	border-top-width: 20px;
+    
+  }
+
+  .ingr {
+   
+    background-color: white;
+    
+
+  }
+
+  .ingrEdit {
+    border-style: outset;
+    border-width:5px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, rgba(78, 76, 76, 0.3), rgba(115, 115, 117, 0.9));
+    background-color: lightgray;
+
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+.float {
+    flex: 1;
+
+
+}
+
+.but {
+    width: 100%;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+}

@@ -44,7 +44,7 @@ if (isset($_POST['submit'])){
             <div class='row'>
                 <div class="col p-3">
 					<header >
-						<h1 style="text-align: center" class = "contain" >My Fridge </h1><button type='button' id="submit" name="submit" form="fridge" class="btn btn-primary btn-lg float-right">View Recipes</button>
+						<h1 style="text-align: center" class = "contain" >My Fridge </h1><button type='button' onclick="window.location.href='fridgeRecipes.php';" class="btn btn-primary btn-lg float-right" style="display:inline;">View Recipes</button>
                     </header>
 				</div>
 			</div>

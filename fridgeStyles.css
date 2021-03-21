@@ -23,9 +23,12 @@
 }
 
 body {
-	background-image: url("img/pexels-trang-doan-1092730.jpg");
-	background-size: cover;
-  	background-position: center center;
+	background-image: url("img/pexels-pixabay-255501.jpg") ;
+	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
 
 }
 
@@ -68,7 +71,16 @@ body {
     border-style: outset;
     border-radius: 10px;
     background: linear-gradient(to bottom, rgba(78, 76, 76, 0.3), rgba(115, 115, 117, 0.9));
-    margin:auto;
+    
+
+  }
+
+  .ingrEdit {
+    border-style: outset;
+    border-width:5px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, rgba(78, 76, 76, 0.3), rgba(115, 115, 117, 0.9));
+    background-color: lightgray;
 
   }
 
