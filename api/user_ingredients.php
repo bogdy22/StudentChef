@@ -77,7 +77,6 @@
 			return [400];
 		}
 	}
-<<<<<<< HEAD
 
 	function getUserIngredients($UserID) {
 		$sql = "SELECT * FROM `User_Ingredients` WHERE `UserID` = '$UserID'";
@@ -101,6 +100,3 @@
 		}
 	}
 ?>
-=======
-?>
->>>>>>> 4ff0f425a3d8e4ab16b9db324778c70d0d372cbe
