@@ -6,9 +6,10 @@
         <?php 	include("head.html");
                 require_once("api/user_ingredients.php");
                 require_once("api/ingredients.php");
+                require_once("api/users.php");
                 session_start();
                 $_SESSION["returnPath"] = "../editFridge.php";
-				
+				$userID = getUserByCASName($_SESSION['username'])[1]["ID"];
 		?>
 
         <?php 
@@ -39,8 +40,8 @@
                     <div id="recipeIngredients">
 						<ul>
 							<?php
-                                if (count(getUserIngredients(2)[1]) != 0){
-                                    foreach(getUserIngredients(2)[1] as $record){  
+                                if (count(getUserIngredients($userID)[1]) != 0){
+                                    foreach(getUserIngredients($userID)[1] as $record){  
                                         $ingredientID = $record['IngredientID'];
                                         $ingredient = getIngredientByID($ingredientID)[1]["Name"];  
                                         if ($record['Excess']==0){
