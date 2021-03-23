@@ -2,8 +2,8 @@
 	require_once("utils.php");
 	require_once("connection.php");
 
-	function createUsers($PreferredName, $CASName) {
-		$sql = "INSERT INTO `Users` (`ID`, `PreferredName`, `CASName`) VALUES (NULL, '$PreferredName', '$CASName')";
+	function createUsers($PreferredName, $CASName, $Postcode) {
+		$sql = "INSERT INTO `Users` (`ID`, `PreferredName`, `CASName`, `Postcode`) VALUES (NULL, '$PreferredName', '$CASName', '$Postcode')";
 		$res = doSQL($sql);
 
 		if ($res[0]) {
@@ -57,8 +57,8 @@
 		}
 	}
 
-	function updateUser($ID, $PreferredName, $CASName) {
-		$sql = "UPDATE `Users` SET `PreferredName` = '$PreferredName', `CASName` = '$CASName' WHERE `ID` = '$ID'";
+	function updateUser($ID, $PreferredName, $CASName, $Postcode) {
+		$sql = "UPDATE `Users` SET `PreferredName` = '$PreferredName', `CASName` = '$CASName', `Postcode` = '$Postcode' WHERE `ID` = '$ID'";
 		$res = doSQL($sql);
 
 		if ($res[0]) {
