@@ -15,6 +15,13 @@
 		echo("Uh oh!");
 		die();
 	}
+
+    if (!empty($_POST["ignoreReport"])) {
+        updateReports($_POST["ignoreReport"], 'MarkedOK');
+    } else if (!empty($_POST["removeRecipe"])) {
+        updateReports($_POST["removeRecipe"], 'MarkedBad');
+        deleteRecipe($_POST["removeRecipeID"]);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -53,8 +60,15 @@
                                             <a href='profile.php?id=$report[UserID]' class='btn btn-secondary' target='_blank'>View Profile</a>
                                         </td>
                                         <td>
-                                            <a href='#!' class='btn btn-success'>Ignore Report</a>
-                                            <a href='#!' class='btn btn-danger'>Remove Recipe</a>
+                                            <form method='POST' action='reports.php' style='display: inline-block;'>
+                                                <input type='text' style='display: none;' name='ignoreReport' value='$report[ID]'>
+                                                <button type='submit' class='btn btn-success'>Ignore Report</button>
+                                            </form>
+                                            <form method='POST' action='reports.php' style='display: inline-block;'>
+                                                <input type='text' style='display: none;' name='removeRecipe' value='$report[ID]'>
+                                                <input type='text' style='display: none;' name='removeRecipeID' value='$report[RecipeID]'>
+                                                <button type='submit' class='btn btn-danger'>Remove Recipe</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 ");
