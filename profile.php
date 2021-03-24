@@ -1,6 +1,7 @@
 <?php
 	require("api/users.php");
 	require("api/recipes.php");
+	require("api/follows.php");
 ?>
 
 <?php 
@@ -19,6 +20,16 @@
 	}
 
 	$recipes = getRecipeByUser($_GET["id"])[1];
+	$followers = getUserFollowers($_GET["id"])[1];
+	$follows = false;
+
+	if (isset($_SESSION["userID"])) {
+		foreach ($followers as $follow) {
+			if ($follow["FollowerID"] == $_SESSION["userID"]) {
+				$follows = true;
+			}
+		}
+	}
 ?>
 
 <?php
@@ -31,6 +42,12 @@
 			echo("Uh oh!");
 			die();
 		}
+	} else if (!empty($_POST["isFollow"])) {
+		createFollow($_SESSION["userID"], $_GET["id"]);
+		$follows = true;
+	} else if (!empty($_POST["isUnfollow"])) {
+		deleteFollow($_SESSION["userID"], $_GET["id"]);
+		$follows = false;
 	}
 ?>
 
@@ -46,12 +63,35 @@
 		<div class="row" id="title">
 			<div class="col p-3">
 				<header>
-					<h1><?php echo($user["PreferredName"]); ?></h1>
-					<?php 
-						if (isset($_SESSION["userID"]) && $_SESSION["userID"] == $_GET["id"]) {
-							echo("<a href='#!' data-toggle='modal' data-target='#modal-change-details'>Change Details?</a>");
-						}
-					?>
+					<div class="row">
+						<div class="col-10">
+							<h1><?php echo($user["PreferredName"]); ?></h1>
+							<p><?php echo(count($recipes)) ?> Recipes | <?php echo(count($followers)) ?> Followers</p>
+						</div>
+						<div class="col-s2">
+							<?php
+								if (isset($_SESSION["userID"]) && $_SESSION["userID"] != $_GET["id"]) {
+									if ($follows == true) {
+										echo("
+											<form method='POST' action='profile.php?id=$_GET[id]'>
+												<input type='text' style='display: none;' name='isUnfollow' value='unfollow'>
+												<button class='btn btn-lg btn-danger' href='#!' type='submit'>Unfollow</button>
+											</form>
+										");
+									} else {
+										echo("
+											<form method='POST' action='profile.php?id=$_GET[id]'>
+												<input type='text' style='display: none;' name='isFollow' value='follow'>
+												<button class='btn btn-lg btn-primary' href='#!' type='submit'>Follow</button>
+											</form>
+										");
+									}
+								} else if (isset($_SESSION["userID"])) {
+									echo("<a href='#!' data-toggle='modal' data-target='#modal-change-details'>Change Details?</a>");
+								}
+							?>
+						</div>
+					</div>
 				</header>
 			</div>
 		</div>
