@@ -34,4 +34,15 @@
 			return [400];
 		}
 	}
+
+	function getRecipeFromIngredient($IngredientID) {
+		$sql = "SELECT * FROM `Recipe_Ingredients` WHERE `IngredientID` = '$IngredientID'";
+		$res = doSQL($sql);
+
+		if ($res[0]) {
+			return [200, toArray($res[1])];
+		} else {
+			return [400];
+		}
+	}
 ?>

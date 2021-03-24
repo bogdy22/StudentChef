@@ -2,6 +2,7 @@
 	<a class="navbar-brand" href="home.php">StudentChef</a>
 	<div class="collapse navbar-collapse">
 		<div class="navbar-nav ml-auto">
+			<a class="nav-link" href="location.php">Ingredient Sharing</a>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				  Categories

@@ -25,13 +25,8 @@ $_SESSION["returnPath"] = "../home.php";
             <div class="input-select">
               <select data-trigger="" name="choices-single-defaul">
                 <option placeholder="">Category</option>
-                <option>New Arrivals</option>
-                <option>Sale</option>
-                <option>Ladies</option>
-                <option>Men</option>
-                <option>Clothing</option>
-                <option>Footwear</option>
-                <option>Accessories</option>
+                <option>Vegan</option>
+                <option>Halal</option>
               </select>
             </div>
           </div>
