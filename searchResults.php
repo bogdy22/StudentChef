@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-  <?php include("head.html") ?>
-  <?php require_once("api/recipes.php") ?>
-  <?php
-      	$name = $_GET['recipeName'];
-      	$query = "%" . $name . "%";
-      	$result = searchRecipes($query);
-      	
-      	
-      ?>
-    <link href="searchStyles.css" rel="stylesheet" >   
-  </head>
+<head>
+    <?php include("head.html");
+	    require_once("api/recipes.php");
+	    session_start();
+  	    $name = $_GET['recipeName'];
+  	    $query = "%" . $name . "%";
+  	    $result = searchRecipes($query);
+    ?>
+    <link href="searchStyles.css" rel="stylesheet" >
+</head>
 <body>
    	<?php include("nav.php") ?>
    
