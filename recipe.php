@@ -5,6 +5,7 @@
 	require("api/measures.php");
 	require("api/feedback.php");
 	require("api/users.php");
+	require("api/follows.php");
 ?>
 
 <?php
@@ -67,10 +68,8 @@ $_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
 		$rating = round($rating / count($feedback));
 	}
 
-	// BEGIN DEVTEST: Temporary Variables for Things Not Yet Implemented
-	$userRecipes = 5;
-	$userFollowers = 82;
-	// END DEVTEST
+	$userRecipes = count(getRecipeByUser($recipe["UserID"])[1]);
+	$userFollowers = count(getUserFollowers($recipe["UserID"])[1]);
 ?>
 
 <!DOCTYPE html>
