@@ -6,6 +6,7 @@
   		require_once("api/ingredients.php");
   		require_once("api/user_ingredients.php");
   		session_start();
+        $_SESSION["returnPath"] = "../location.php";
   	?>
 	<link href="locationStyles.css" rel="stylesheet" >
 </head>
