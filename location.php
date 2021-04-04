@@ -6,6 +6,7 @@
   		require_once("api/ingredients.php");
   		require_once("api/user_ingredients.php");
   		session_start();
+		$_SESSION["returnPath"] = "../location.php";
   ?>
   <title>StudentChef</title>
     <meta charset="utf-8">
