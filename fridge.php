@@ -15,13 +15,14 @@ if (isset($_POST['submit'])){
     if (getUserIngredients($userID)[1]!=0){
         deleteUserIngredient($userID);
     }
-    
-    $ingredients = $_POST['ingredients'];
-    $excess = $_POST['excess'];
-    foreach($ingredients as $i =>$ingredient){
-        $ingredientID = searchIngredients($ingredient)[1][0]["ID"];
-        createUserIngredient($userID, $ingredientID, $excess[$i]);
-        
+    if (isset($_POST['ingredients'])){
+        $ingredients = $_POST['ingredients'];
+        $excess = $_POST['excess'];
+        foreach($ingredients as $i =>$ingredient){
+            $ingredientID = searchIngredients($ingredient)[1][0]["ID"];
+            createUserIngredient($userID, $ingredientID, $excess[$i]);
+            
+        }
     }
 }
 
