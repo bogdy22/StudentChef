@@ -13,7 +13,7 @@
 					echo "<a class='nav-link' href='reports.php'>Reports</a>";
 				}
 				echo "<li class='nav-item dropdown'><a class='nav-link dropdown-toggle' href='profile.php?id=$apiUser[ID]' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>My Profile</a>
-					<div class='dropdown-menu' aria-labelledby='navbarDropdown'>
+					<div class='dropdown-menu' aria-labelledby='navbarDropdown' style='margin-left: -42px;'>
 						<a class='dropdown-item' href='profile.php?id=$apiUser[ID]'>Profile Page</a>
 						<a class='dropdown-item' href='fridge.php'>My Fridge</a>
 						<a class='dropdown-item' href='auth/logout.php'>Log out</a>
