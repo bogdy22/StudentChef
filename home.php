@@ -14,16 +14,7 @@ $_SESSION["returnPath"] = "../home.php";
       <div class="s003">
       <form action="searchResults.php" method="get">
         <div class="inner-form">
-          <div class="input-field first-wrap">
-            <div class="input-select">
-              <select data-trigger="" name="choices-single-defaul">
-                <option placeholder="">Category</option>
-                <option>Vegan</option>
-                <option>Halal</option>
-              </select>
-            </div>
-          </div>
-          <div class="input-field second-wrap">
+          <div class="input-field" style="width: calc(100% - 74px);">
             <input id="search" name="recipeName" type="text" placeholder="Enter Keywords" />
           </div>
           <div class="input-field third-wrap">
