@@ -33,7 +33,7 @@
 ?>
 
 <?php
-	if (!empty($_POST["detailsName"]) && !empty($_POST["detailsPostcode"])) {
+	if (!empty($_POST["detailsName"])) {
 		if (isset($_SESSION["userID"]) && $_SESSION["userID"] == $_GET["id"]) {
 			updateUser($_GET["id"], $_POST["detailsName"], $user["CASName"], $_POST["detailsPostcode"]);
 			$user["PreferredName"] = $_POST["detailsName"];
@@ -131,14 +131,14 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<div id="alert" class="alert alert-danger" role="alert" style="display: none;">Please provide a preferred name and postcode.</div>
+						<div id="alert" class="alert alert-danger" role="alert" style="display: none;">Please provide a preferred name.</div>
 						<?php echo("<form id='change-details-form' method='POST' action='profile.php?id=$_GET[id]'>"); ?>
 						<div class="form-group">
 							<label for="detailsName">Preferred Name</label>
 							<?php echo("<input type='text' class='form-control' id='detailsName' name='detailsName' value='$user[PreferredName]'>"); ?>
 						</div>
 						<div class="form-group">
-							<label for="detailsPostcode">Postcode</label>
+							<label for="detailsPostcode">Postcode (Optional)</label>
 							<?php echo("<input type='text' class='form-control' id='detailsPostcode' name='detailsPostcode' value='$user[Postcode]'>"); ?>
 							<small id="postcodeSubtext" class="form-text text-muted">This is used for the ingredient matching service.</small>
 						</div>
