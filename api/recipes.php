@@ -35,6 +35,17 @@
 		}
 	}
 
+	function getRecipeByUser($UserID) {
+		$sql = "SELECT * FROM `Recipes` WHERE `UserID` = '$UserID'";
+		$res = doSQL($sql);
+
+		if ($res[0]) {
+			return [200, toArray($res[1])];
+		} else {
+			return [400];
+		}
+	}
+
 	function searchRecipes($Name) {
 		$sql = "SELECT * FROM `Recipes` WHERE `Name` LIKE '%$Name%'";
 		$res = doSQL($sql);
