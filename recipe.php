@@ -5,6 +5,7 @@
 	require("api/measures.php");
 	require("api/feedback.php");
 	require("api/users.php");
+	require("api/reports.php");
 	require("api/follows.php");
 ?>
 
@@ -31,6 +32,10 @@ $_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
 			$UserID = $res[1]["ID"];
 			createFeedback($_POST["recipeRating"], $_POST["recipeReview"], $_POST["recipeDuration"], $_POST["recipeDifficulty"], $_GET["id"], $UserID);
 		}
+	} else if (!empty($_POST["isReport"])) {
+		$res = getUserByCASName($_SESSION["username"]);
+		$UserID = $res[1]["ID"];
+		createReport($_GET["id"], $UserID);
 	}
 ?>
 
@@ -105,18 +110,38 @@ $_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
 					</section>
 				</main>
 				<footer>
-					<div class="btn-group d-flex justify-content-center" role="actions" aria-label="More Actions">
+					<form class="btn-group d-flex justify-content-center" role="actions" aria-label="More Actions" method="POST" <?php echo("action='recipe.php?id=$_GET[id]'"); ?>>
+						<input type="text" style="display: none;" name="isReport" value="report">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-view-feedback">View Feedback</button>
 						<?php
 							if (isset($_SESSION["authTime"])) {
 								echo('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-write-feedback">Write Feedback</button>');
 							} else {
-								echo('<button type="button" class="btn btn-primary disabled" data-toggle="modal" data-target="#modal-write-feedback">Write Feedback</button>');
+								echo('<button type="button" class="btn btn-primary disabled" disabled data-toggle="modal" data-target="#modal-write-feedback">Write Feedback</button>');
 							}
 						?>
-						<button type="button" class="btn btn-primary">Find Ingredients</button>
-						<button type="button" class="btn btn-danger disabled">Report Page</button>
-					</div>
+						<button type="button" class="btn btn-primary disabled" disabled>Find Ingredients</button>
+						<?php
+							if (isset($_SESSION["authTime"])) {
+								$res = getUserByCASName($_SESSION["username"]);
+								$UserID = $res[1]["ID"];
+								$reports = getReportsByRecipe($_GET["id"]);
+								foreach ($reports as $report) {
+									if (isset($report["UserID"]) && $report["UserID"] == $UserID) {
+										$userReported = true;
+										break;
+									}
+								}
+								if (isset($userReported)) {
+									echo('<button type="submit" class="btn btn-danger disabled" disabled>Report Page</button>');
+								} else {
+									echo('<button type="submit" class="btn btn-danger">Report Page</button>');
+								}
+							} else {
+								echo('<button type="submit" class="btn btn-danger disabled" disabled>Report Page</button>');
+							}
+						?>
+					</form>
 				</footer>
 			</div>
 			<div class="col-4 p-3" id="right-col">

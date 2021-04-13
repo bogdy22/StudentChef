@@ -20,6 +20,10 @@
             if (!isset($_SESSION["authTime"]) || !isset($_SESSION["username"])){
                 echo "<a class='nav-link' href='auth/login.php'>Login/Signup</a>";
             }else{
+				$apiUser = getUserByCASName($_SESSION["username"])[1];
+				if ($apiUser["Admin"]) {
+					echo "<a class='nav-link' href='reports.php'>Reports</a>";
+				}
                 echo "<a class='nav-link' href='auth/logout.php'>Logout</a>";
             }
             ?>
