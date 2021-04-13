@@ -24,6 +24,7 @@
 				if ($apiUser["Admin"]) {
 					echo "<a class='nav-link' href='reports.php'>Reports</a>";
 				}
+				echo "<a class='nav-link' href='profile.php?id=$apiUser[ID]'>My Profile</a>";
                 echo "<a class='nav-link' href='auth/logout.php'>Logout</a>";
             }
             ?>
