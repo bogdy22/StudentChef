@@ -20,6 +20,7 @@
             if (!isset($_SESSION["authTime"]) || !isset($_SESSION["username"])){
                 echo "<a class='nav-link' href='auth/login.php'>Login/Signup</a>";
             }else{
+            	echo "<a class='nav-link' href='requestsPage.php'>Your Requests</a>";
                 echo "<a class='nav-link' href='auth/logout.php'>Logout</a>";
             }
             ?>

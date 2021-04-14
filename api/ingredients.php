@@ -45,6 +45,17 @@
 			return [400];
 		}
 	}
+	
+	function searchIngredientsExact($Name) {
+		$sql = "SELECT * FROM `Ingredients` WHERE `Name` LIKE '$Name'";
+		$res = doSQL($sql);
+
+		if ($res[0]) {
+			return [200, toArray($res[1])];
+		} else {
+			return [400];
+		}
+	}
 
 	function updateIngredients($ID, $Name, $Measure) {
 		$sql = "UPDATE `Ingredients` SET `Name` = '$Name', `Measure` = '$Measure' WHERE `ID` = '$ID'";
