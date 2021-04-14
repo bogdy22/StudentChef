@@ -38,6 +38,7 @@
 				  	<select data-trigger="" name="choices-single-defaul">
 						<option placeholder="">Ingredient</option>
 						<?php
+							echo("<script>console.log(".count($ingredients).")</script>");
 							for($i = 0; $i < count($ingredients); $i++) {
 								echo("<option>".$ingredients[$i]."</option>");
 							}
@@ -71,7 +72,7 @@
 									echo("Name: ".$users[1][$x]["PreferredName"]);
 									echo("<br/>Quantity: ".$users[1][$x]["Excess"]);
 									echo("<br/>Postcode: ".$users[1][$x]["Postcode"]);
-									echo("</p><form action='requestIngredient.php' method='post'><button class='resultButton' type='submit' name='".$users[1][$x]["ID"]."'>Request Location</button></div></form>");
+									echo("</p><form action='requestIngredient.php' id='requestForm$x' method='post'></form><button form='requestForm$x' class='resultButton' type='submit' name='".$users[1][$x]["ID"]."'>Request Location</button></div>");
 									echo("<p class='postcodefield'>".$users[1][$x]["Postcode"]."</p>");
 								}
 							}

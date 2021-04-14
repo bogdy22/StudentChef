@@ -4,7 +4,8 @@
 		<div class="navbar-nav ml-auto">
 			<a class="nav-link" href="location.php">Ingredient Sharing</a>
 			<a class="nav-link" href="submitRecipe.php">Submit Recipe</a>
-			<?php 
+			<?php
+			require_once("api/users.php");
             if (!isset($_SESSION["authTime"]) || !isset($_SESSION["username"])){
                 echo "<a class='nav-link' href='auth/login.php'>Login/Signup</a>";
             }else{
@@ -17,6 +18,7 @@
 						<a class='dropdown-item' href='profile.php?id=$apiUser[ID]'>Profile Page</a>
 						<a class='dropdown-item' href='fridge.php'>My Fridge</a>
 						<a class='dropdown-item' href='auth/logout.php'>Log out</a>
+						<a class='dropdown-item' href='requestsPage.php'>My Requests</a>
 					</div></li>";            }
             ?>
 		</div>

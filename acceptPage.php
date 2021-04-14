@@ -22,6 +22,7 @@
    	<?php
 	echo('<div class="s003">');
 	if(isset($_POST['btn'])) {
+		echo("<p>Please provide the location where the person may collect the ingredient from by placing a pin on the map below:</p>");
 		echo('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1OUr6frf_S2gQHnE0Gq1fZuyGbKjK4tM&callback=initMap" async></script>');
 		echo('<div id="map" style="height: 400px; width: 100%;"></div>');
 		echo('<div class="mainContent">');

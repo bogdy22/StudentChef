@@ -74,7 +74,8 @@
 		  			echo("</div></div>");
 		  			
 		  			# bottom content (completed requests)
-		  			echo("<div class='bottomContent'><h1>Completed Requests</h1>");
+		  			
+		  			echo("<div class='bottomContent'><h1>Completed Requests</h1><p style='text-align: center; margin: 5px;'>Requests that you have sent that have received a response will be shown here. Dismiss requests once you have received the ingredient.</p>");
 		  			for ($x = 0; $x < count($completedRequests); $x++) {
 		  				$ingredientName = getIngredientByID($completedRequests[$x]["IngredientID"])[1]["Name"];
 	  					$requestedUser = getUserByID($completedRequests[$x]["RequestedUserID"]);
