@@ -3,7 +3,7 @@
 	<head>
 		<?php 	include("head.html");
 				require_once('api/measures.php');
-
+				session_start();
 				$measures = getAllIngredientMeasures()[1];
 				$measuresAbr = [];
 				$measureID = [];
