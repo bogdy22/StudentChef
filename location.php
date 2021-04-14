@@ -19,7 +19,9 @@
 			   	<?php 
 				    if (!isset($_SESSION["authTime"]) || !isset($_SESSION["username"])){
 				        echo("<p>You are not logged in. Please <a href='auth/login.php'>log in</a> to continue.</p>");
-				    }else{
+				    } else if(empty(getUserByCASName($_SESSION["username"])[1]["Postcode"])) {
+				    	echo("<p>You have indicated that you would not like your location shared, and so are unable to utilise this feature. You can change this in your settings.</p>");
+				    } else {
 				    	$username = $_SESSION["username"];
 		  				$result = getUserByCASName($username);
 				        echo("<p>Logged in as ".$result[1]["PreferredName"].".<br/>What do you need?</p>");
@@ -69,7 +71,7 @@
 									echo("Name: ".$users[1][$x]["PreferredName"]);
 									echo("<br/>Quantity: ".$users[1][$x]["Excess"]);
 									echo("<br/>Postcode: ".$users[1][$x]["Postcode"]);
-									echo("</p><button class='resultButton'>Request Location</button></div>");
+									echo("</p><form action='requestIngredient.php' method='post'><button class='resultButton' type='submit' name='".$users[1][$x]["ID"]."'>Request Location</button></div></form>");
 									echo("<p class='postcodefield'>".$users[1][$x]["Postcode"]."</p>");
 								}
 							}
@@ -85,6 +87,7 @@
 		        }
 		        if(isset($_POST['submit'])) {
 		        	$choice = $_POST['choices-single-defaul'];
+		        	$_SESSION["currentIngredient"] = $choice;
 		        	$id = array_search($choice, $ingredients);
 		        	//echo($choice." ".$id);
 		       		showUsers($id);

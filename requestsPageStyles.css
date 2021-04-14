@@ -811,29 +811,39 @@ legend {
 }
 
 .s003 {
-  min-height: 100vh;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-      justify-content: flex-start;
-  -ms-flex-align: center;
-      align-items: flex-start;
-  flex-wrap: wrap;
-  flex-direction: row;
-  font-family: 'Poppins', sans-serif;
-  background-image: url("img/food.jpg");
-  background-size: cover;
-  background-position: center center;
-  padding: 15px;
+  	min-height: 100vh;
+  	min-width: 100vw;
+  	display: flex;
+  	justify-content: flex-start;
+  	align-items: center;
+  	flex-direction: column;
+  	font-family: 'Poppins', sans-serif;
+  	background-image: url("img/food.jpg");
+  	background-size: cover;
+  	background-position: center center;
+  	padding: 15px;
 }
 
-.postcodefield {
-	display: none;
-}
-
-.userResult {
+.topContent {
 	display: flex;
-	flex: 1;
+	flex: 0 1 0;
+	justify-content: center;
+	flex-direction: row;
+	min-width: 100%;
+}
+
+.bottomContent {
+	display: flex;
+	flex: 0 1 0;
+	justify-content: center;
+	flex-direction: column;
+	min-width: 100%;
+	margin: 10px;
+}
+
+.requestResult {
+	display: flex;
+	flex: 0 1 0;
 	justify-content: space-between;
 	background: white;
 	padding: 10px;
@@ -841,9 +851,24 @@ legend {
 	align-items: center;
 }
 
+.buttonBox {
+	display: flex;
+	flex: 1;
+	justify-content: flex-end;
+	background: white;
+	align-items: center;
+}
+
 .resultButton {
-	max-width: 15%;
+	width: 15%;
 	padding: 5px;
+	margin: 10px;
+}
+
+.acceptDenyButton {
+	width: 50%;
+	padding: 5px;
+	margin: 10px;
 }
 
 .left {
@@ -862,14 +887,11 @@ legend {
 	margin: 10px;
 }
 
-.topcontent {
-	max-height: 12vh;
-	min-width: 35vw;
-	padding: 10px;
-	display: flex;
+.s003 h1 {
 	background: white;
-	align-items: center;
 	margin: 10px;
+	padding: 10px;
+	text-align: center;
 }
 
 .s003 p {
