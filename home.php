@@ -5,32 +5,16 @@ $_SESSION["returnPath"] = "../home.php";
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-  <?php include("head.html") ?>
-    <title>StudentChef</title>
-    <meta charset="utf-8">
-   
-    <link href="homeStyles.css" rel="stylesheet" >
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
-   
+  <head>  
+	<?php include("head.html") ?>
+	<link href="homeStyles.css" rel="stylesheet" >
   </head>
 <body>
    <?php include("nav.php") ?>
       <div class="s003">
       <form action="searchResults.php" method="get">
         <div class="inner-form">
-          <div class="input-field first-wrap">
-            <div class="input-select">
-              <select data-trigger="" name="choices-single-defaul">
-                <option placeholder="">Category</option>
-                <option>Vegan</option>
-                <option>Halal</option>
-              </select>
-            </div>
-          </div>
-          <div class="input-field second-wrap">
+          <div class="input-field" style="width: calc(100% - 74px);">
             <input id="search" name="recipeName" type="text" placeholder="Enter Keywords" />
           </div>
           <div class="input-field third-wrap">
@@ -42,18 +26,6 @@ $_SESSION["returnPath"] = "../home.php";
           </div>
         </div>
       </form>
-    </div>
-    <script src="js/extention/choices.js"></script>
-    <script>
-      const choices = new Choices('[data-trigger]',
-      {
-        searchEnabled: false,
-        itemSelectText: '',
-      });
-
-    </script>
-     
-
- 
+    </div> 
 </body>
 </html>

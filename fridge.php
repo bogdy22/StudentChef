@@ -57,8 +57,8 @@ if (isset($_POST['submit'])){
                     <div id="recipeIngredients">
 						<ul>
 							<?php
-                                if (count(getUserIngredients(2)[1]) != 0){
-                                    foreach(getUserIngredients(2)[1] as $record){  
+                                if (count(getUserIngredients($userID)[1]) != 0){
+                                    foreach(getUserIngredients($userID)[1] as $record){  
                                         $ingredientID = $record['IngredientID'];
                                         $ingredient = getIngredientByID($ingredientID)[1]["Name"];  
                                         echo "<li class='mb-3'>

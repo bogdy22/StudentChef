@@ -1,23 +1,16 @@
 <html lang="en">
-  <head>
-  <?php 
+<head>
+  	<?php 
   		include("head.html");
   		require_once("api/users.php");
   		require_once("api/ingredients.php");
   		require_once("api/user_ingredients.php");
   		session_start();
-		$_SESSION["returnPath"] = "../location.php";
-  ?>
-  <title>StudentChef</title>
-    <meta charset="utf-8">
-   
-    <link href="locationStyles.css" rel="stylesheet" >
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
- 	<script src="locationScripts.js"></script>
-  </head>
-  <body>
+        $_SESSION["returnPath"] = "../location.php";
+  	?>
+	<link href="locationStyles.css" rel="stylesheet" >
+</head>
+<body>
    	<?php include("nav.php"); ?>
    
 	<div class="s003">
@@ -121,7 +114,7 @@
 
     </script> -->
     
-     
+	<script src="locationScripts.js"></script>
  
 </body>
 </html>
