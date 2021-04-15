@@ -1,7 +1,6 @@
 <?php
-	require_once("api/requests.php");
-	require_once("api/users.php");
 	session_start();
+	require("api/importer.php");
 	
 	$data = json_decode(file_get_contents("php://input"));
 	$requestID = $data->id;

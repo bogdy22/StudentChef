@@ -1,9 +1,6 @@
 <?php
-require_once('api/recipes.php');
-require_once('api/ingredients.php');
-require_once('api/recipes_ingredients.php');
-require_once('api/measures.php');
-
+session_start();
+require("api/importer.php");
  
 if (isset($_POST['submit'])){
     $recipeTitle = $_POST['recipeTitle']; 

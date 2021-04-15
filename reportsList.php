@@ -1,11 +1,11 @@
 <?php
-	require("api/recipes.php");
-	require("api/users.php");
-	require("api/reports.php")
+	session_start();
+	$_SESSION["returnPath"] = "../reportsList.php";
+    require("auth/isAuth.php");
+	require("api/importer.php");
 ?>
 
 <?php
-    session_start();
     if (!isset($_SESSION["username"])) {
         echo("Uh oh!");
 		die();

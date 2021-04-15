@@ -1,9 +1,13 @@
+<?php
+	session_start();
+	$_SESSION["returnPath"] = "../submitRecipe.php";
+	require("auth/isAuth.php");
+	require("api/importer.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<?php 	include("head.html");
-				require_once('api/measures.php');
-				session_start();
 				$measures = getAllIngredientMeasures()[1];
 				$measuresAbr = [];
 				$measureID = [];

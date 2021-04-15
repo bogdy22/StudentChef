@@ -1,10 +1,5 @@
 <?php
-	require("api/users.php");
-	require("api/recipes.php");
-	require("api/follows.php");
-?>
-
-<?php 
+	require("api/importer.php");
 	session_start();
 	$_SESSION["returnPath"] = "../profile.php?id=$_GET[id]";
 ?>

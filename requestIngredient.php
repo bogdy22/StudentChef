@@ -1,12 +1,14 @@
+<?php
+	session_start();
+	$_SESSION["returnPath"] = "../requestIngredient.php";
+    require("auth/isAuth.php");
+	require("api/importer.php");
+?>
+
 <html lang="en">
   <head>
   <?php 
   		include("head.html");
-  		require_once("api/users.php");
-  		require_once("api/requests.php");
-  		require_once("api/ingredients.php");
-  		session_start();
-		
   ?>
   <title>StudentChef</title>
     <meta charset="utf-8">
