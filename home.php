@@ -1,6 +1,7 @@
-<?php 
-session_start();
-$_SESSION["returnPath"] = "../home.php";
+<?php
+	session_start();
+	$_SESSION["returnPath"] = "../home.php";
+	require("api/importer.php");
 ?>
 
 <!DOCTYPE html>

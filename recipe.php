@@ -1,12 +1,7 @@
 <?php
-	require("api/recipes.php");
-	require("api/recipes_ingredients.php");
-	require("api/ingredients.php");
-	require("api/measures.php");
-	require("api/feedback.php");
-	require("api/users.php");
-	require("api/reports.php");
-	require("api/follows.php");
+	session_start();
+	$_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
+	require("api/importer.php");
 ?>
 
 <?php
@@ -18,11 +13,6 @@
 		echo("Uh oh!");
 		die();
 	}
-?>
-
-<?php 
-session_start();
-$_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
 ?>
 
 <?php

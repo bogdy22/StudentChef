@@ -1,21 +1,8 @@
 <?php
-
-require_once('api/ingredients.php');
-require_once('api/user_ingredients.php');
-require_once('api/users.php');
-require_once('api/recipes.php');
-require_once('api/recipes_ingredients.php');
-
-
-session_start();
-$_SESSION["returnPath"] = "../fridgeRecipes.php";
-?>
-
-<?php 
-     if (!isset($_SESSION["authTime"]) || !isset($_SESSION["username"]) || !isset($_SESSION["fullName"])) {
-        header("Location: auth/login.php");
-        die();
-    }        
+	session_start();
+	$_SESSION["returnPath"] = "../requestsPage.php";
+    require("auth/isAuth.php");
+	require("api/importer.php");
 ?>
 
 
