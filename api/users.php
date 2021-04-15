@@ -68,6 +68,17 @@
 		}
 	}
 	
+	function updateUserNoPostcode($ID, $PreferredName, $CASName) {
+		$sql = "UPDATE `Users` SET `PreferredName` = '$PreferredName', `CASName` = '$CASName', `Postcode` = NULL WHERE `ID` = '$ID'";
+		$res = doSQL($sql);
+
+		if ($res[0]) {
+			return [204];
+		} else {
+			return [400];
+		}
+	}
+	
 	function updateUserLocation($ID, $Latitude, $Longitude) {
 		$sql = "UPDATE `Users` SET `Latitude` = '$Latitude', `Longitude` = '$Longitude' WHERE `ID` = '$ID'";
 		$res = doSQL($sql);

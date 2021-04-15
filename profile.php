@@ -36,7 +36,11 @@
 <?php
 	if (!empty($_POST["detailsName"])) {
 		if (isset($_SESSION["userID"]) && $_SESSION["userID"] == $_GET["id"]) {
-			updateUser($_GET["id"], $_POST["detailsName"], $user["CASName"], $_POST["detailsPostcode"]);
+			if("" == trim($_POST["detailsPostcode"])) {
+				updateUserNoPostcode($_GET["id"], $_POST["detailsName"], $user["CASName"]);
+			} else {
+				updateUser($_GET["id"], $_POST["detailsName"], $user["CASName"], $_POST["detailsPostcode"]);
+			}
 			$user["PreferredName"] = $_POST["detailsName"];
 			$user["Postcode"] = $_POST["detailsPostcode"];
 		} else {

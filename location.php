@@ -21,8 +21,10 @@
 			   	<?php 
 				    if (!isset($_SESSION["authTime"]) || !isset($_SESSION["username"])){
 				        echo("<p>You are not logged in. Please <a href='auth/login.php'>log in</a> to continue.</p>");
+				        die();
 				    } else if(empty(getUserByCASName($_SESSION["username"])[1]["Postcode"])) {
-				    	echo("<p>You have indicated that you would not like your location shared, and so are unable to utilise this feature. You can change this in your settings.</p>");
+				    	echo("<p>You have indicated that you would not like your location shared, and so are unable to utilise this feature. You can change this <a href='profile.php?id=".getUserByCASName($_SESSION["username"])[1]["ID"]."'>here</a> in your settings.</p>");
+				    	die();
 				    } else {
 				    	$username = $_SESSION["username"];
 		  				$result = getUserByCASName($username);
@@ -100,10 +102,14 @@
 		        }
 		        if(isset($_POST['submit'])) {
 		        	$choice = $_POST['choices-single-defaul'];
-		        	$_SESSION["currentIngredient"] = $choice;
-		        	$id = array_search($choice, $ingredients);
-		        	//echo($choice." ".$id);
-		       		showUsers($id);
+		        	if($choice != "Ingredient") {
+				    	$_SESSION["currentIngredient"] = $choice;
+				    	$id = array_search($choice, $ingredients);
+				    	//echo($choice." ".$id);
+				   		showUsers($id);
+				   	} else {
+				   		echo("<p>Please choose an ingredient.</p>");
+				   	}
 		        }
 		    ?>
 		</div>
