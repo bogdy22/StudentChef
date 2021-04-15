@@ -2,8 +2,8 @@
 	require_once("utils.php");
 	require_once("connection.php");
 
-	function createUsers($PreferredName, $CASName, $Postcode) {
-		$sql = "INSERT INTO `Users` (`ID`, `PreferredName`, `CASName`, `Admin`, `Postcode`) VALUES (NULL, '$PreferredName', '$CASName', 0, '$Postcode')";
+	function createUsers($PreferredName, $CASName) {
+		$sql = "INSERT INTO `Users` (`ID`, `PreferredName`, `CASName`, `Admin`, `Postcode`, `Latitude`, `Longitude`) VALUES (NULL, '$PreferredName', '$CASName', 0, 'NULL', NULL, NULL)";
 		$res = doSQL($sql);
 
 		if ($res[0]) {

@@ -5,6 +5,8 @@
   		require_once("api/users.php");
   		require_once("api/ingredients.php");
   		require_once("api/user_ingredients.php");
+  		require_once("api/recipes.php");
+		require_once("api/recipes_ingredients.php");
   		session_start();
         $_SESSION["returnPath"] = "../location.php";
   	?>
@@ -25,11 +27,21 @@
 				    	$username = $_SESSION["username"];
 		  				$result = getUserByCASName($username);
 				        echo("<p>Logged in as ".$result[1]["PreferredName"].".<br/>What do you need?</p>");
-				        $result = getAllIngredients();
-				        $ingredients = array();
-				        if($result[0] == 200) {
-						    for($x = 0; $x < count($result[1]); $x++) {
-						    	$ingredients += [$result[1][$x]["ID"] => $result[1][$x]["Name"]];
+						if (!empty($_GET["recipeID"])) {
+							$recipe = getRecipeByID($_GET["recipeID"])[1];
+							$ingredientRecords = getRecipeIngredients($recipe["ID"])[1];
+							$ingredients = array();
+							foreach ($ingredientRecords as $record) {
+								$ingredientName = getIngredientByID($record["IngredientID"])[1]["Name"];
+								$ingredients += [$record["IngredientID"] => $ingredientName];
+							}
+						} else {
+						    $result = getAllIngredients();
+						    $ingredients = array();
+						    if($result[0] == 200) {
+								for($x = 0; $x < count($result[1]); $x++) {
+									$ingredients += [$result[1][$x]["ID"] => $result[1][$x]["Name"]];
+								}
 							}
 						}
 				    }
@@ -38,9 +50,9 @@
 				  	<select data-trigger="" name="choices-single-defaul">
 						<option placeholder="">Ingredient</option>
 						<?php
-							echo("<script>console.log(".count($ingredients).")</script>");
-							for($i = 0; $i < count($ingredients); $i++) {
-								echo("<option>".$ingredients[$i]."</option>");
+							//echo("<script>console.log(".count($ingredients).")</script>");
+							foreach ($ingredients as $id => $name) {
+								echo("<option>$name</option>");
 							}
 						?>
 				  	</select>
