@@ -25,13 +25,21 @@
 .resultsTitle {
 	width: 95vw;
 	display: flex;
+	flex: 0 1 0;
 	justify-content: center;
+}
+
+.results {
+	flex: 1;
+	min-width: 100%;
 }
 
 .searchResult {
 	display: flex;
+	max-width: 50%;
 	align-items: center;
-	flex: 1;
+	justify-content: space-between;
+	flex: 0 1 0;
 	background: white;
 	margin: 10px;
 }
@@ -40,6 +48,7 @@
 	background: white;
 	font-style: bold;
 	padding: 10px;
+	white-space: nowrap;
 }
 
 .searchResult p {
@@ -48,7 +57,9 @@
 	padding: 10px;
 }
 .submitButton {
-	flex: 1;
+	flex: 0 1 0;
+	min-width: 20%;
+	max-height: 50%;
 	padding: 10px;
 	margin: 20px;
 }
@@ -77,9 +88,6 @@
 }
 
 */
-.results {
-	flex: 1;
-}
 
 .s003 form {
   width: 100%;

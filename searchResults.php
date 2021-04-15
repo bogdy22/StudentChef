@@ -22,7 +22,7 @@
 	   		<p>Search Results for: "<?php echo($name)?>"</p>
 	   	</div> -->
 	   	<div class="resultsTitle">
-		   	<form action="searchResults.php" method="post" style="padding: 15px; ">
+		   	<form action="searchResults.php" method="get" style="padding: 15px; ">
 				<div class="inner-form">
 				  	<div class="input-field second-wrap">
 				    	<input id="search" name="recipeName" type="text" value="<?php echo $name; ?>" placeholder="Enter Keywords"/>
@@ -60,7 +60,7 @@
 					echo("<div class=\"searchResult\">");
 					echo("<p>Name: ".$result[1][$x][$keys[1]]);
 					echo("<br />Description: ".$result[1][$x][$keys[2]]);
-					echo("</p><form method=\"post\" action=\"recipe.php\"><button class=\"submitButton\" type=\"submit\" formmethod=\"get\" value=\"".$result[1][$x][$keys[0]]."\" name=\"id\"/>See recipe</button></form>");
+					echo("</p><form id='result$x' method=\"post\" action=\"recipe.php\"></form><button form='result$x' class=\"submitButton\" type=\"submit\" formmethod=\"get\" value=\"".$result[1][$x][$keys[0]]."\" name=\"id\"/>See recipe</button>");
 					echo("</div>");
 				}
 			}

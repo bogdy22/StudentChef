@@ -110,7 +110,7 @@
 								echo('<button type="button" class="btn btn-primary disabled" disabled data-toggle="modal" data-target="#modal-write-feedback">Write Feedback</button>');
 							}
 						?>
-						<button type="button" class="btn btn-primary disabled" disabled>Find Ingredients</button>
+						<button type="button" onclick="findIngredients('recipeID=<?php echo($_GET["id"]); ?>')" id="find-ingredients" class="btn btn-primary">Find Ingredients</button>
 						<?php
 							if (isset($_SESSION["authTime"])) {
 								$res = getUserByCASName($_SESSION["username"]);

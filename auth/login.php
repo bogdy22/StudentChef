@@ -20,8 +20,9 @@ if (!empty($apiUser)) {
         header("Location: /");
     }
 } else {
-    $_SESSION["userID"] = createUsers($_SESSION["fullName"], $_SESSION["username"])[1];
-    header("Location: /profile?user=$_SESSION[userID]");
+    createUsers($_SESSION["fullName"], $_SESSION["username"]);
+    $_SESSION["userID"] = getUserByCASName($_SESSION["username"])[1]["ID"];
+    header("Location: ../profile.php?id=".$_SESSION["userID"]);
 }
 
 die();
