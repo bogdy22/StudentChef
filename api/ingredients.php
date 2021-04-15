@@ -45,6 +45,17 @@
 			return [400];
 		}
 	}
+
+	function searchIngredient($Name, $Measure) {
+		$sql = "SELECT * FROM `Ingredients` WHERE `Name` LIKE '%$Name%' AND 'Measure' = '$Measure' ";
+		$res = doSQL($sql);
+
+		if ($res[0]) {
+			return [200, toArray($res[1])];
+		} else {
+			return [400];
+		}
+	}
 	
 	function searchIngredientsExact($Name) {
 		$sql = "SELECT * FROM `Ingredients` WHERE `Name` LIKE '$Name'";

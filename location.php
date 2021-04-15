@@ -1,3 +1,10 @@
+<?php
+	session_start();
+	$_SESSION["returnPath"] = "../location.php";
+	require("auth/isAuth.php");
+	require("api/importer.php");
+?>
+
 <html lang="en">
 <head>
   	<?php 

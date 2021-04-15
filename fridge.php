@@ -1,12 +1,8 @@
 <?php
-
-require_once('api/ingredients.php');
-require_once('api/user_ingredients.php');
-require_once('api/users.php');
-
-
-session_start();
-$_SESSION["returnPath"] = "../fridge.php";
+	session_start();
+	$_SESSION["returnPath"] = "../fridge.php";
+    require("auth/isAuth.php");
+	require("api/importer.php");
 
 $userID = getUserByCASName($_SESSION['username'])[1]["ID"];
 
@@ -19,7 +15,11 @@ if (isset($_POST['submit'])){
         $ingredients = $_POST['ingredients'];
         $excess = $_POST['excess'];
         foreach($ingredients as $i =>$ingredient){
+            if (count(searchIngredients($ingredient)[1])>0){
             $ingredientID = searchIngredients($ingredient)[1][0]["ID"];
+            }else{
+                $ingredientID = createIngredient($ingredient, 1)[1];
+            }
             createUserIngredient($userID, $ingredientID, $excess[$i]);
             
         }
@@ -33,8 +33,6 @@ if (isset($_POST['submit'])){
     <html lang='en'>
         <head>
         <?php 	include("head.html");
-                require_once("api/user_ingredients.php");
-                require_once("api/ingredients.php")
 				
 		?>
             <link rel='stylesheet' type='text/css' href='fridgeStyles.css'>

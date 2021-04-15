@@ -1,9 +1,12 @@
+<?php
+	session_start();
+	$_SESSION["returnPath"] = "../searchResults.php?recipeName=$_GET[recipeName]";
+	require("api/importer.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php include("head.html");
-	    require_once("api/recipes.php");
-	    session_start();
   	    $name = $_GET['recipeName'];
   	    $query = "%" . $name . "%";
   	    $result = searchRecipes($query);
