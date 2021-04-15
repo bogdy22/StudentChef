@@ -19,7 +19,11 @@ if (isset($_POST['submit'])){
         $ingredients = $_POST['ingredients'];
         $excess = $_POST['excess'];
         foreach($ingredients as $i =>$ingredient){
+            if (count(searchIngredients($ingredient)[1])>0){
             $ingredientID = searchIngredients($ingredient)[1][0]["ID"];
+            }else{
+                $ingredientID = createIngredient($ingredient, 1)[1];
+            }
             createUserIngredient($userID, $ingredientID, $excess[$i]);
             
         }

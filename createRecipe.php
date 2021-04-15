@@ -18,8 +18,7 @@ if (isset($_POST['submit'])){
     $recipe = createRecipe($recipeTitle, $description, $instructions, $duration , $difficulty, 1);
     echo $recipe[0];
     foreach ($ingredientlist as $i => $ingredient){
-       
-        if (count(searchIngredients($ingredientlist[$i])[1])==0){
+        if (count(searchIngredient($ingredientlist[$i], $measurelist[$i])[1])==0){
             $ing = createIngredient($ingredientlist[$i], $measurelist[$i])[1];
             createRecipeIngredient($recipe[1], $ing, $amountlist[$i]);
         }else{

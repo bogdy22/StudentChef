@@ -34,12 +34,21 @@ $possibleRecipes = array();
 
 
 foreach ($ingredientIDList as $ingredientID){
-    $records = getRecipeFromIngredient($ingredientID)[1];
-    foreach ($records as $record){
-        array_push($possibleRecipes, $record["RecipeID"]);
+    $ingredientList = array();
+    $ingredientName = getIngredientByID($ingredientID)[1]["Name"];
+    $ingredients = searchIngredients($ingredientName)[1];
+    foreach ($ingredients as $ing){
+        array_push($ingredientList, $ing["ID"]);
     }
+    foreach ($ingredientList as $ing){
+        $records = getRecipeFromIngredient($ing)[1];
+        foreach ($records as $record){
+            array_push($possibleRecipes, $record["RecipeID"]);
+        }
+    }
+    
 }
-
+$possibleRecipes = array_unique($possibleRecipes);
 $values = array_count_values($possibleRecipes);
 arsort($values);
 $popular = array_slice(array_keys($values), 0, 10, true);
