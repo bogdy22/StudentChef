@@ -3,7 +3,9 @@ require_once('api/recipes.php');
 require_once('api/ingredients.php');
 require_once('api/recipes_ingredients.php');
 require_once('api/measures.php');
+require_once('api/users.php');
 
+session_start();
  
 if (isset($_POST['submit'])){
     $recipeTitle = $_POST['recipeTitle']; 
@@ -15,8 +17,7 @@ if (isset($_POST['submit'])){
     $measurelist = $_POST['measure'];
     $difficulty = $_POST['difficulty'];
     $duration = $_POST['duration'];
-    $recipe = createRecipe($recipeTitle, $description, $instructions, $duration , $difficulty, 1);
-    echo $recipe[0];
+    $recipe = createRecipe($recipeTitle, $description, $instructions, $duration , $difficulty, getUserByCASName($_SESSION["username"])[1]["ID"]);
     foreach ($ingredientlist as $i => $ingredient){
        
         if (count(searchIngredients($ingredientlist[$i])[1])==0){
