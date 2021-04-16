@@ -13,3 +13,14 @@ $('#recipeDuration').change(function() {
 $('#feedback-submit').click(function() {
     $('#write-feedback-form').submit();
 });
+
+/*
+$('#find-ingredients').click(function() {
+	window.location.href = "location.php";
+});
+*/
+
+function findIngredients(url) {
+	window.location.href = "location.php?"+url;
+}
+

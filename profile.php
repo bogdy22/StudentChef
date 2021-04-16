@@ -1,21 +1,17 @@
 <?php
-	require("api/users.php");
-	require("api/recipes.php");
-	require("api/follows.php");
-?>
-
-<?php 
+	require("api/importer.php");
 	session_start();
-	$_SESSION["returnPath"] = "../profile.php?id=$_GET[id]";
 ?>
 
 <?php
 	if (!empty($_GET["id"])) {
 		$user = getUserByID($_GET["id"])[1];
+		$_SESSION["returnPath"] = "../profile.php?id=$_GET[id]";
 	}
 
 	if (empty($user)) {
-		echo("Uh oh!");
+		echo("No user supplied.<br/>");
+		echo("<a href='home.php'>Click here to go home</a>");
 		die();
 	}
 
@@ -35,11 +31,16 @@
 <?php
 	if (!empty($_POST["detailsName"])) {
 		if (isset($_SESSION["userID"]) && $_SESSION["userID"] == $_GET["id"]) {
-			updateUser($_GET["id"], $_POST["detailsName"], $user["CASName"], $_POST["detailsPostcode"]);
+			if("" == trim($_POST["detailsPostcode"])) {
+				updateUserNoPostcode($_GET["id"], $_POST["detailsName"], $user["CASName"]);
+			} else {
+				updateUser($_GET["id"], $_POST["detailsName"], $user["CASName"], $_POST["detailsPostcode"]);
+			}
 			$user["PreferredName"] = $_POST["detailsName"];
 			$user["Postcode"] = $_POST["detailsPostcode"];
 		} else {
-			echo("Uh oh!");
+			echo("Your session timed out before you submitted your request. Your details have not been updated.<br/>");
+			echo("<a href='home.php'>Click here to go home</a>");
 			die();
 		}
 	} else if (!empty($_POST["isFollow"])) {
@@ -139,8 +140,16 @@
 						</div>
 						<div class="form-group">
 							<label for="detailsPostcode">Postcode (Optional)</label>
-							<?php echo("<input type='text' class='form-control' id='detailsPostcode' name='detailsPostcode' value='$user[Postcode]'>"); ?>
-							<small id="postcodeSubtext" class="form-text text-muted">This is used for the ingredient matching service.</small>
+							<?php 
+								if ($user["Postcode"] == "NULL") {
+									$postcode = "";
+								} else {
+									$postcode = $user["Postcode"];
+								}
+								echo("<input type='text' class='form-control' id='detailsPostcode' name='detailsPostcode' value='$postcode'>"); 
+								// Want to make sure that this prints nothing instead of NULL but not working as intended
+							?>
+							<small id="postcodeSubtext" class="form-text text-muted">This is used for the ingredient matching service. To opt-out, keep this field empty.</small>
 						</div>
 						</form>
 					</div>

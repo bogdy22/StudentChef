@@ -1,12 +1,7 @@
 <?php
-	require("api/recipes.php");
-	require("api/recipes_ingredients.php");
-	require("api/ingredients.php");
-	require("api/measures.php");
-	require("api/feedback.php");
-	require("api/users.php");
-	require("api/reports.php");
-	require("api/follows.php");
+	session_start();
+	$_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
+	require("api/importer.php");
 ?>
 
 <?php
@@ -18,11 +13,6 @@
 		echo("Uh oh!");
 		die();
 	}
-?>
-
-<?php 
-session_start();
-$_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
 ?>
 
 <?php
@@ -120,7 +110,7 @@ $_SESSION["returnPath"] = "../recipe.php?id=$_GET[id]";
 								echo('<button type="button" class="btn btn-primary disabled" disabled data-toggle="modal" data-target="#modal-write-feedback">Write Feedback</button>');
 							}
 						?>
-						<button type="button" class="btn btn-primary disabled" disabled>Find Ingredients</button>
+						<button type="button" onclick="findIngredients('recipeID=<?php echo($_GET["id"]); ?>')" id="find-ingredients" class="btn btn-primary">Find Ingredients</button>
 						<?php
 							if (isset($_SESSION["authTime"])) {
 								$res = getUserByCASName($_SESSION["username"]);

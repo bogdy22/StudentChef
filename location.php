@@ -1,3 +1,10 @@
+<?php
+	session_start();
+	$_SESSION["returnPath"] = "../location.php";
+	require("auth/isAuth.php");
+	require("api/importer.php");
+?>
+
 <html lang="en">
 <head>
   	<?php 
@@ -5,6 +12,8 @@
   		require_once("api/users.php");
   		require_once("api/ingredients.php");
   		require_once("api/user_ingredients.php");
+  		require_once("api/recipes.php");
+		require_once("api/recipes_ingredients.php");
   		session_start();
         $_SESSION["returnPath"] = "../location.php";
   	?>
@@ -19,17 +28,29 @@
 			   	<?php 
 				    if (!isset($_SESSION["authTime"]) || !isset($_SESSION["username"])){
 				        echo("<p>You are not logged in. Please <a href='auth/login.php'>log in</a> to continue.</p>");
+				        die();
 				    } else if(empty(getUserByCASName($_SESSION["username"])[1]["Postcode"])) {
-				    	echo("<p>You have indicated that you would not like your location shared, and so are unable to utilise this feature. You can change this in your settings.</p>");
+				    	echo("<p>You have indicated that you would not like your location shared, and so are unable to utilise this feature. You can change this <a href='profile.php?id=".getUserByCASName($_SESSION["username"])[1]["ID"]."'>here</a> in your settings.</p>");
+				    	die();
 				    } else {
 				    	$username = $_SESSION["username"];
 		  				$result = getUserByCASName($username);
 				        echo("<p>Logged in as ".$result[1]["PreferredName"].".<br/>What do you need?</p>");
-				        $result = getAllIngredients();
-				        $ingredients = array();
-				        if($result[0] == 200) {
-						    for($x = 0; $x < count($result[1]); $x++) {
-						    	$ingredients += [$result[1][$x]["ID"] => $result[1][$x]["Name"]];
+						if (!empty($_GET["recipeID"])) {
+							$recipe = getRecipeByID($_GET["recipeID"])[1];
+							$ingredientRecords = getRecipeIngredients($recipe["ID"])[1];
+							$ingredients = array();
+							foreach ($ingredientRecords as $record) {
+								$ingredientName = getIngredientByID($record["IngredientID"])[1]["Name"];
+								$ingredients += [$record["IngredientID"] => $ingredientName];
+							}
+						} else {
+						    $result = getAllIngredients();
+						    $ingredients = array();
+						    if($result[0] == 200) {
+								for($x = 0; $x < count($result[1]); $x++) {
+									$ingredients += [$result[1][$x]["ID"] => $result[1][$x]["Name"]];
+								}
 							}
 						}
 				    }
@@ -38,8 +59,9 @@
 				  	<select data-trigger="" name="choices-single-defaul">
 						<option placeholder="">Ingredient</option>
 						<?php
-							for($i = 0; $i < count($ingredients); $i++) {
-								echo("<option>".$ingredients[$i]."</option>");
+							//echo("<script>console.log(".count($ingredients).")</script>");
+							foreach ($ingredients as $id => $name) {
+								echo("<option>$name</option>");
 							}
 						?>
 				  	</select>
@@ -71,7 +93,7 @@
 									echo("Name: ".$users[1][$x]["PreferredName"]);
 									echo("<br/>Quantity: ".$users[1][$x]["Excess"]);
 									echo("<br/>Postcode: ".$users[1][$x]["Postcode"]);
-									echo("</p><form action='requestIngredient.php' method='post'><button class='resultButton' type='submit' name='".$users[1][$x]["ID"]."'>Request Location</button></div></form>");
+									echo("</p><form action='requestIngredient.php' id='requestForm$x' method='post'></form><button form='requestForm$x' class='resultButton' type='submit' name='".$users[1][$x]["ID"]."'>Request Location</button></div>");
 									echo("<p class='postcodefield'>".$users[1][$x]["Postcode"]."</p>");
 								}
 							}
@@ -87,10 +109,14 @@
 		        }
 		        if(isset($_POST['submit'])) {
 		        	$choice = $_POST['choices-single-defaul'];
-		        	$_SESSION["currentIngredient"] = $choice;
-		        	$id = array_search($choice, $ingredients);
-		        	//echo($choice." ".$id);
-		       		showUsers($id);
+		        	if($choice != "Ingredient") {
+				    	$_SESSION["currentIngredient"] = $choice;
+				    	$id = array_search($choice, $ingredients);
+				    	//echo($choice." ".$id);
+				   		showUsers($id);
+				   	} else {
+				   		echo("<p>Please choose an ingredient.</p>");
+				   	}
 		        }
 		    ?>
 		</div>
