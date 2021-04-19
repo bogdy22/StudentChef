@@ -1,5 +1,5 @@
 <?php
-	require_once(__DIR__ . "/../config.inc.php");
+	require_once(__DIR__ ."/config.inc.php");
 
 	$conn = mysqli_connect($database_host, $database_user, $database_pass, "2020_comp10120_y16");
 

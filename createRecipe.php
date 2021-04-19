@@ -1,13 +1,7 @@
 <?php
-require_once('api/recipes.php');
-require_once('api/ingredients.php');
-require_once('api/recipes_ingredients.php');
-require_once('api/measures.php');
-require_once('api/users.php');
-
-session_start();
 require("api/importer.php");
- 
+session_start();
+
 if (isset($_POST['submit'])){
     $recipeTitle = $_POST['recipeTitle']; 
     $description = $_POST['recipeTagline']; 
